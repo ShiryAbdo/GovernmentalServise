@@ -7,6 +7,9 @@ package governmental.service.egypt.data;
 public class TyprServis {
     private String TyprServis ;
 
+    public TyprServis() {
+    }
+
     public TyprServis(String typrServis) {
         TyprServis = typrServis;
     }

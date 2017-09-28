@@ -34,7 +34,7 @@
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
             android:name=".dialogs.AddPapersServiceDialog"
-            android:theme="@style/Theme.AppCompat.Dialog" />
+            android:theme="@style/Theme.AppCompat"/>
         <activity android:name=".dialogs.PlacesServiceDialog"
             android:theme="@style/Theme.AppCompat.Dialog" ></activity>
     </application>

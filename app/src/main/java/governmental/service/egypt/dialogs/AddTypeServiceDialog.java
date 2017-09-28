@@ -130,7 +130,7 @@ public class AddTypeServiceDialog extends AppCompatActivity {
     private void AddTypeService (String  TyprServisName ,String service ) {
         TyprServis typrServis = new TyprServis(TyprServisName);
 
-        mDatabase.child("users").child("Service").child(service).child(TyprServisName).setValue(typrServis);
+        mDatabase.child("users").child("Service").child(service).child("TyprServisName").child(TyprServisName).setValue(typrServis);
     }
 
 
