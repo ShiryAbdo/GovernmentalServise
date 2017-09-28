@@ -5,4 +5,17 @@ package governmental.service.egypt.data;
  */
 
 public class Service {
+    private String nameService ;
+
+    public Service(String nameService) {
+        this.nameService = nameService;
+    }
+
+    public Service() {
+
+    }
+
+    public String getNameService() {
+        return nameService;
+    }
 }
