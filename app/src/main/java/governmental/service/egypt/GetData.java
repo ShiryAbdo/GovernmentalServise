@@ -10,7 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import governmental.service.egypt.data.User;
+import governmental.service.egypt.data.users;
 
 public class GetData extends AppCompatActivity {
       DatabaseReference mDatabase;
@@ -23,14 +23,14 @@ public class GetData extends AppCompatActivity {
         setContentView(R.layout.activity_get_data);
         textView=(TextView)findViewById(R.id.textView);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        User user = new User("shimaa","email", "pass");
+        users users = new users("email","pass", "asmaa");
 
-        mDatabase.child("users").child("shimaa").setValue(user);
-        mDatabase.child("users").child("shimaa").addValueEventListener (new ValueEventListener() {
+        mDatabase.child("users").child("asmaa").setValue(users);
+        mDatabase.child("users").child("asmaa").addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    User post = postSnapshot.getValue(User.class);
+
+                    users post = dataSnapshot.getValue(users.class);
                     String username = post.getUsername();
                     textView.setText( username);
 
@@ -38,7 +38,7 @@ public class GetData extends AppCompatActivity {
 //               if (username.equals(mUserView.getText().toString())) {
 //                   alreadyRegisteredAccount++;
 //               }
-                }
+
 
             }
 
