@@ -57,7 +57,7 @@ public class ServiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent =new Intent(getApplicationContext(),PlacesServiceDialog.class);
+                Intent intent =new Intent(getApplicationContext(),MappPlaces.class);
                 startActivity(intent);
             }
         });

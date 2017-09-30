@@ -45,6 +45,7 @@ public class AddPapersServiceDialog extends AppCompatActivity {
     String spinner_service_item  ,spinner_typeService_item;
     ArrayList<String> categories_Spinner_one ;
     ArrayList<String> categories_Spinner_two ;
+    Button CompletService ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class AddPapersServiceDialog extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        CompletService =(Button)findViewById(R.id.CompletService);
         mDatabase.child("users").child("Service").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,7 +74,10 @@ public class AddPapersServiceDialog extends AppCompatActivity {
 
                         Service value = dataSnapshot1.getValue(Service.class);
                          String servisename =value.getNameService();
-                        categories_Spinner_one.add(servisename);
+
+                            categories_Spinner_one.add(servisename);
+
+
                     }
                 }else{
                 }
@@ -101,29 +106,38 @@ public class AddPapersServiceDialog extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // On selecting a spinner item
                 spinner_service_item = parent.getItemAtPosition(position).toString();
+                if(spinner_service_item=="أختار خدمه"){
+                    Toast.makeText(getApplicationContext(), "من فضلك إختار خدمة", Toast.LENGTH_SHORT).show();
+                }else{
 
-                mDatabase.child("users").child("Service").child(spinner_service_item).child("TyprServisName").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists()){
+                    mDatabase.child("users").child("Service").child(spinner_service_item).child("typeOfSerVICE").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
 
-                            for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
+                                for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
+                                    String name =dataSnapshot1.getKey();
 
-                                TyprServis value = dataSnapshot1.getValue(TyprServis.class);
-                                String servisename =value.getTyprServis();
-                                categories_Spinner_two.add(servisename);
+//                                TyprServis value = dataSnapshot1.getValue(TyprServis.class);
+//                                String servisename =value.getTyprServis();
+
+
+                                    categories_Spinner_two.add(name);
+
+                                }
+                            }else{
                             }
-                        }else{
+
+
                         }
 
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
+                        }
+                    });
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                }
 
 
 
@@ -152,6 +166,9 @@ public class AddPapersServiceDialog extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // On selecting a spinner item
                 spinner_typeService_item = parent.getItemAtPosition(position).toString();
+                if(spinner_typeService_item=="أختار نوع اخدمة"){
+                    Toast.makeText(getApplicationContext(), "من فضلك إختار نوع  الخدمة", Toast.LENGTH_SHORT).show();
+                }
 
                 // Showing selected spinner item
                 Toast.makeText(parent.getContext(),   spinner_typeService_item, Toast.LENGTH_LONG).show();
@@ -170,7 +187,7 @@ public class AddPapersServiceDialog extends AppCompatActivity {
                 LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
                 alertView = inflater.inflate(R.layout.custom_alert_layout, null);
                 dialogBuilder.setView(alertView);
-                dialogBuilder.setCancelable(false);
+                dialogBuilder.setCancelable(true);
                 final AlertDialog alertDialog = dialogBuilder.create();
                 alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -208,5 +225,31 @@ public class AddPapersServiceDialog extends AppCompatActivity {
             }
         });
 
+
+        CompletService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(spinner_service_item!=null&&spinner_typeService_item!=null&&data!=null){
+
+
+                     if(spinner_typeService_item=="أختار نوع اخدمة"){
+                        Toast.makeText(getApplicationContext(), "من فضلك إختار نوع  الخدمة", Toast.LENGTH_SHORT).show();
+                    }else {
+                         AddPaper(spinner_service_item,spinner_typeService_item,data);
+                         Toast.makeText(getApplicationContext(), "تم الإضافه ", Toast.LENGTH_SHORT).show();
+                     }
+
+                }else {
+                    Toast.makeText(getApplicationContext(), "أضف البيانات ", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
+
+    }
+    private void AddPaper (String  serviceName ,String typeOservice,ArrayList<String> papers ) {
+
+        mDatabase.child("users").child("Service").child(serviceName).child("typeOfSerVICE").child(typeOservice).child("papers").setValue(papers);
     }
 }

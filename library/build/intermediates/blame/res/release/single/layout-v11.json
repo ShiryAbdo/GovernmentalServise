@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\thisNew\\GovernmentalServise\\library\\build\\intermediates\\res\\merged\\release\\layout-v11\\notification_template_big_media_custom.xml",
+        "source": "C:\\Users\\falcon\\.android\\build-cache\\d320255e5ae7b3d99b889a923c2f3cac46ffed8e\\output\\res\\layout-v11\\notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "D:\\thisNew\\GovernmentalServise\\library\\build\\intermediates\\res\\merged\\release\\layout-v11\\notification_template_big_media.xml",
+        "source": "C:\\Users\\falcon\\.android\\build-cache\\d320255e5ae7b3d99b889a923c2f3cac46ffed8e\\output\\res\\layout-v11\\notification_template_big_media.xml"
+    },
+    {
+        "merged": "D:\\thisNew\\GovernmentalServise\\library\\build\\intermediates\\res\\merged\\release\\layout-v11\\notification_media_cancel_action.xml",
+        "source": "C:\\Users\\falcon\\.android\\build-cache\\d320255e5ae7b3d99b889a923c2f3cac46ffed8e\\output\\res\\layout-v11\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "D:\\thisNew\\GovernmentalServise\\library\\build\\intermediates\\res\\merged\\release\\layout-v11\\notification_template_big_media_narrow_custom.xml",
+        "source": "C:\\Users\\falcon\\.android\\build-cache\\d320255e5ae7b3d99b889a923c2f3cac46ffed8e\\output\\res\\layout-v11\\notification_template_big_media_narrow_custom.xml"
+    },
+    {
+        "merged": "D:\\thisNew\\GovernmentalServise\\library\\build\\intermediates\\res\\merged\\release\\layout-v11\\notification_media_action.xml",
+        "source": "C:\\Users\\falcon\\.android\\build-cache\\d320255e5ae7b3d99b889a923c2f3cac46ffed8e\\output\\res\\layout-v11\\notification_media_action.xml"
+    },
+    {
+        "merged": "D:\\thisNew\\GovernmentalServise\\library\\build\\intermediates\\res\\merged\\release\\layout-v11\\notification_template_big_media_narrow.xml",
+        "source": "C:\\Users\\falcon\\.android\\build-cache\\d320255e5ae7b3d99b889a923c2f3cac46ffed8e\\output\\res\\layout-v11\\notification_template_big_media_narrow.xml"
+    }
+]

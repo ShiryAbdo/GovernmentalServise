@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import governmental.service.egypt.data.TyprServis;
 import governmental.service.egypt.data.users;
 
 public class GetData extends AppCompatActivity {
@@ -25,14 +26,15 @@ public class GetData extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         users users = new users("email","pass", "asmaa");
 
-        mDatabase.child("users").child("asmaa").setValue(users);
-        mDatabase.child("users").child("asmaa").addValueEventListener (new ValueEventListener() {
+         mDatabase.child("users").child("Service").child("ننن").child("typeOfSerVICE").addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
+                     TyprServis value = dataSnapshot1.getValue(TyprServis.class);
+                    String servisename =value.getTyprServis();
+                    textView.setText( servisename);
 
-                    users post = dataSnapshot.getValue(users.class);
-                    String username = post.getUsername();
-                    textView.setText( username);
+                }
 
 
 //               if (username.equals(mUserView.getText().toString())) {
