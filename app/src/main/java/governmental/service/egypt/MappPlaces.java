@@ -6,11 +6,15 @@ import android.location.Geocoder;
  import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidbuts.multispinnerfilter.KeyPairBoolData;
 import com.androidbuts.multispinnerfilter.MultiSpinnerSearch;
+import com.androidbuts.multispinnerfilter.SingleSpinnerSearch;
 import com.androidbuts.multispinnerfilter.SpinnerListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,8 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import governmental.service.egypt.data.Service;
 
@@ -41,8 +46,22 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
     ArrayList<String>CatogersGaverNorate ;
     ArrayList<String>  categoriesPlaces;
     List<KeyPairBoolData> listArray0,listArrayGaverNorate,listArrayPlaces;
+     ArrayList<String>MltyChoseService ,MultyChoseGavernNorate,MlutyChosePlaces;
+    EditText name_of_place ;
+    Button CompletService ;
+    Map<String, Object> PlacesOfGaverNorate;
+    Map<String, Object> PlacesOfPlaces;
+    ArrayList<String>CairoPlaces;
+    ArrayList<String>gizaPlaces;
+    ArrayList<String>garbiaPlaces;
+    ArrayList<String>sharqialaces;
+    ArrayList<String>mansoraPlaces;
+    SingleSpinnerSearch searchSingleSpinner ;
+    LatLng FinallatLng;
+    Double longtuti;
+    Double latutuied;
     TextView textView2 ;
-    ArrayList<String>MltyChoseService ,MultyChoseGavernNorate,MlutyChosePlaces;
+    String  name ;
 
 
     @Override
@@ -50,6 +69,9 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapp_places);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        CompletService=(Button)findViewById(R.id.CompletService);
+         name_of_place=(EditText)findViewById(R.id.name_of_place);
+        searchSingleSpinner= (SingleSpinnerSearch) findViewById(R.id.searchSingleSpinner);
         textView2=(TextView)findViewById(R.id.textView2);
         categories = new ArrayList<String>();
         CatogersGaverNorate = new ArrayList<String>();
@@ -61,6 +83,14 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
         MltyChoseService=new ArrayList<>();
         MultyChoseGavernNorate=new ArrayList<>();
         MlutyChosePlaces=new ArrayList<>();
+        PlacesOfGaverNorate = new HashMap<>();
+        PlacesOfPlaces= new HashMap<>();
+        CairoPlaces=new ArrayList<>();
+        gizaPlaces=new ArrayList<>();
+        garbiaPlaces=new ArrayList<>();
+        sharqialaces=new ArrayList<>();
+        mansoraPlaces=new ArrayList<>();
+
 
         mDatabase.child("users").child("Service").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -111,6 +141,86 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
                     }
                 }
 
+                final ArrayList<String> newData =new ArrayList<String>();
+                for (int x =0 ; x<MltyChoseService.size();x++){
+                    mDatabase.child("users").child("Service").child(MltyChoseService.get(x)).child("places").child("OtherplacesOfService").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
+
+                                    String value = dataSnapshot1.getKey();
+                                    newData.add(value);
+                                    textView2.setText(value);
+
+                                }
+
+
+
+                            }else{
+
+
+
+
+
+
+
+
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+
+
+
+                final ArrayList<String> Data =new ArrayList<String>();
+                for (int x =0 ; x<newData.size();x++){
+                    mDatabase.child("users").child("Service").child(MltyChoseService.get(x)).child("places").child("OtherplacesOfService").child(newData.get(x)).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+                                for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
+
+                                    String value = dataSnapshot1.getValue(String.class);
+                                    Data.add(value);
+                                    textView2.setText(value);
+
+                                }
+                                MultyChoseGavernNorate.add(dataSnapshot.getKey());
+                                PlacesOfGaverNorate.put(dataSnapshot.getKey(),Data);
+
+
+                            }else{
+
+
+
+
+
+
+
+
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+
+
 
                 for (int i = 0; i < items.size(); i++) {
                     if (items.get(i).isSelected()) {
@@ -120,6 +230,7 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
                 }
             }
         });
+        CatogersGaverNorate.add("إضافة الكل");
         CatogersGaverNorate.add("القاهره");
         CatogersGaverNorate.add("الجيزه");
         CatogersGaverNorate.add("الشرقية");
@@ -129,6 +240,18 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
         CatogersGaverNorate.add("سهاج");
         CatogersGaverNorate.add("دمياط");
         CatogersGaverNorate.add("الغربية");
+
+        garbiaPlaces.add("إضافة الكل");
+        garbiaPlaces.add("طنطا قسم أول ");
+        garbiaPlaces.add("طنطا قسم ثاني ");
+        garbiaPlaces.add("المحله");
+        garbiaPlaces.add("زفتي");
+        garbiaPlaces.add("المحله الكبري");
+        garbiaPlaces.add("محله روح");
+         CairoPlaces.add("مدينة نصر");
+        CairoPlaces.add("مصر الجديدة");
+        CairoPlaces.add("المعادي");
+        CairoPlaces.add("حدائق الزتون");
         for (int i = 0; i < CatogersGaverNorate.size(); i++) {
             KeyPairBoolData h = new KeyPairBoolData();
             h.setId(i + 1);
@@ -139,44 +262,62 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
 
 
 
-        searchMultiSpinnerUnlimitedGavernorat=(MultiSpinnerSearch)findViewById(R.id.searchMultiSpinnerUnlimitedGavernorat);
-        searchMultiSpinnerUnlimitedGavernorat.setItems(listArrayGaverNorate, -1, new SpinnerListener() {
+
+        searchSingleSpinner.setItems(listArrayGaverNorate, -1, new SpinnerListener() {
 
             @Override
-            public void onItemsSelected(List<KeyPairBoolData> items) {
-                searchMultiSpinnerUnlimitedGavernorat.getSelectedItems();
-                StringBuilder spinnerBuffer = new StringBuilder();
+            public void onItemsSelected(final List<KeyPairBoolData> items) {
 
                 for (int i = 0; i < items.size(); i++) {
+                    final int finalI = i;
                     if (items.get(i).isSelected()) {
-                        spinnerBuffer.append(items.get(i).getName());
-                        spinnerBuffer.append(", ");
-                        MultyChoseGavernNorate.add(items.get(i).getName());
-                    }
-                }
+
+                        if( MultyChoseGavernNorate.contains(items.get(finalI).getName())){
+                            Toast.makeText(getApplicationContext(), "تم إضافة هذه المحافظه مسبقا", Toast.LENGTH_SHORT).show();
+                        }else {
+                            name=items.get(finalI).getName();
+                        }
 
 
-                for (int i = 0; i < items.size(); i++) {
-                    if (items.get(i).isSelected()) {
-                        Toast.makeText(getApplicationContext(), i + " : " + items.get(i).getName() + " : " + items.get(i).isSelected(), Toast.LENGTH_SHORT).show();
-                        Log.i("Tag", i + " : " + items.get(i).getName() + " : " + items.get(i).isSelected());
+
+                        if(name==CatogersGaverNorate.get(1)){
+                            listArrayPlaces.clear();
+                            categoriesPlaces.clear();
+                            categoriesPlaces.addAll(CairoPlaces);
+                            for (int K = 0; K < categoriesPlaces.size(); K++) {
+                                KeyPairBoolData h = new KeyPairBoolData();
+                                h.setId(K+ 1);
+                                h.setName(categoriesPlaces.get(K));
+                                h.setSelected(false);
+                                listArrayPlaces.add(h);
+                            }
+                        }else if (name=="الغربية"){
+                            listArrayPlaces.clear();
+                            categoriesPlaces.clear();
+                            categoriesPlaces.addAll(garbiaPlaces);
+
+                            for (int K = 0; K < categoriesPlaces.size(); K++) {
+                                KeyPairBoolData h = new KeyPairBoolData();
+                                h.setId(K+ 1);
+                                h.setName(categoriesPlaces.get(K));
+                                h.setSelected(false);
+                                listArrayPlaces.add(h);
+                            }
+                        }else {
+                            listArrayPlaces.clear();
+                            categoriesPlaces.clear();
+                        }
+
+
+
+
                     }
                 }
             }
         });
-        categoriesPlaces.add("طنطا قسم أول ");
-        categoriesPlaces.add("طنطا قسم ثاني ");
-        categoriesPlaces.add("المحله");
-        categoriesPlaces.add("زفتي");
-        categoriesPlaces.add("المحله الكبري");
-        categoriesPlaces.add("محله روح");
-        for (int i = 0; i < categoriesPlaces.size(); i++) {
-            KeyPairBoolData h = new KeyPairBoolData();
-            h.setId(i + 1);
-            h.setName(categoriesPlaces.get(i));
-            h.setSelected(false);
-            listArrayPlaces.add(h);
-        }
+
+
+
 
 
 
@@ -186,13 +327,63 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
             @Override
             public void onItemsSelected(List<KeyPairBoolData> items) {
                  StringBuilder spinnerBuffer = new StringBuilder();
+                ArrayList<String> arrayList = new ArrayList<String>();
 
-                for (int i = 0; i < items.size(); i++) {
+                 for (int i = 0; i < items.size(); i++) {
                     if (items.get(i).isSelected()) {
-                        spinnerBuffer.append(items.get(i).getName());
-                        spinnerBuffer.append(", ");
-                        MlutyChosePlaces.add(items.get(i).getName());
+
+//                        لا بد من   عمل تشك ايه   بالظبط اللي  اتعمل  له اضافه الكل  وعلي اساسه نختار الأراي   الللي  المفروض   ينضاف
+
+                         String  name =items.get(i).getName();
+                        if(name=="إضافة الكل"){
+                             for(int j = 1; j < garbiaPlaces.size(); j++){
+                                PlacesOfPlaces.put(garbiaPlaces.get(j),garbiaPlaces.get(j));
+
+                            }
+                            Toast.makeText(getApplicationContext(),
+                                    "تم إضافه كل المناطق", Toast.LENGTH_LONG).show();
+
+                        }else {
+                            PlacesOfPlaces.put(items.get(i).getName(),items.get(i).getName());
+                            arrayList.add(items.get(i).getName());
+
+                        }
+
                     }
+                }
+                PlacesOfGaverNorate.put(name,arrayList);
+
+
+
+
+
+            }
+        });
+
+        CompletService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(name_of_place.getText().toString().trim()==null){
+                    Toast.makeText(getApplicationContext(),
+                            "أدخل إسم المكان ", Toast.LENGTH_LONG).show();
+                }else if (latutuied==null&&longtuti==null){
+                    Toast.makeText(getApplicationContext(),
+                            "أضف موقع المكان علي الخريطة", Toast.LENGTH_LONG).show();
+                }
+                else if(PlacesOfPlaces.isEmpty()){
+                    Toast.makeText(getApplicationContext(),
+                            "ضف البيانات ", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    for (int i=0 ;i<MltyChoseService.size();i++){
+                        AddPlaceService(MltyChoseService.get(i), PlacesOfGaverNorate);
+//                        mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child("OtherplacesOfService").child(MultyChoseGavernNorate.get(i)).setValue(PlacesOfPlaces);
+
+                        mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child("nameOfplace").setValue(name_of_place.getText().toString().trim());
+                        mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child("latitude").setValue(latutuied);
+                        mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child("longitude").setValue(longtuti);
+                    }
+
                 }
 
 
@@ -212,6 +403,9 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
             @Override
             public void onMapClick(LatLng latLng) {
                 mMap.clear();
+                FinallatLng=latLng;
+                latutuied=latLng.latitude;
+                longtuti=latLng.longitude;
                 MarkerOptions marker = new MarkerOptions().position(
                         new LatLng(latLng.latitude, latLng.longitude)).title(getGeocodeName(latLng.latitude, latLng.longitude));
                 marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
@@ -231,6 +425,13 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
     }
 
 
+    private void AddPlaceService (String  serviceName ,Map<String, Object>  arrayOfplaces ) {
+
+        mDatabase.child("users").child("Service").child(serviceName).child("places").child("OtherplacesOfService").setValue(arrayOfplaces);
+    }
+    private void AddPlaceServiceWithPLACES (String  serviceName ,ArrayList<String>  arrayOfplaces , Map<String, Object>  arraOfplaces ) {
+
+    }
 
 
 
@@ -239,7 +440,7 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
 
         Geocoder geocoder = new Geocoder( context);
         List<Address> addresses = null;
-        String unknown ="Unknown Location";
+        String unknown ="";
         try {
             addresses = geocoder.getFromLocation(latitude, longitude, 1);
         } catch (IOException e) {

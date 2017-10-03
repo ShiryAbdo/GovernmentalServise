@@ -28,6 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import governmental.service.egypt.Adaptors.PaperDataAdapter;
 import governmental.service.egypt.R;
@@ -38,7 +40,7 @@ public class AddPapersServiceDialog extends AppCompatActivity {
     Spinner spinner_service  ,spinner_typeService;
     TextView addTyprServiseText ;
     RecyclerView recyclerView ;
-    ArrayList<String>data ;
+   ArrayList<String>data;
     PaperDataAdapter adapter ;
     ImageView addPaperBt ;
     private DatabaseReference mDatabase;
@@ -46,12 +48,14 @@ public class AddPapersServiceDialog extends AppCompatActivity {
     ArrayList<String> categories_Spinner_one ;
     ArrayList<String> categories_Spinner_two ;
     Button CompletService ;
+    Map<String, Object> papers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_papers_service_dialog);
         data= new ArrayList<>();
+        papers = new HashMap<>();
         categories_Spinner_one=new ArrayList<>();
         categories_Spinner_one.add("أختار خدمه");
         categories_Spinner_two=new ArrayList<>();
@@ -204,6 +208,7 @@ public class AddPapersServiceDialog extends AppCompatActivity {
                              Toast.makeText(getApplicationContext(), "تم إضافتها مسبقا", Toast.LENGTH_SHORT).show();
                          }else{
                              data.add(addServiseText.getText().toString().trim());
+                             papers.put(addServiseText.getText().toString().trim(),addServiseText.getText().toString().trim());
                              recyclerView.setAdapter(adapter);
                              adapter.notifyDataSetChanged();
                              Toast.makeText(getApplicationContext(), "تم الإضافه ", Toast.LENGTH_SHORT).show();
@@ -235,7 +240,7 @@ public class AddPapersServiceDialog extends AppCompatActivity {
                      if(spinner_typeService_item=="أختار نوع اخدمة"){
                         Toast.makeText(getApplicationContext(), "من فضلك إختار نوع  الخدمة", Toast.LENGTH_SHORT).show();
                     }else {
-                         AddPaper(spinner_service_item,spinner_typeService_item,data);
+                         AddPaper(spinner_service_item,spinner_typeService_item,papers);
                          Toast.makeText(getApplicationContext(), "تم الإضافه ", Toast.LENGTH_SHORT).show();
                      }
 
@@ -248,7 +253,7 @@ public class AddPapersServiceDialog extends AppCompatActivity {
         });
 
     }
-    private void AddPaper (String  serviceName ,String typeOservice,ArrayList<String> papers ) {
+    private void AddPaper (String  serviceName ,String typeOservice,Map<String, Object> papers ) {
 
         mDatabase.child("users").child("Service").child(serviceName).child("typeOfSerVICE").child(typeOservice).child("papers").setValue(papers);
     }
