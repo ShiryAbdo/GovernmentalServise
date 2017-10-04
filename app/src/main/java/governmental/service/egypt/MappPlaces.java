@@ -363,7 +363,7 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
         CompletService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(name_of_place.getText().toString().trim()==null){
+                if(name_of_place.getText().toString()==""){
                     Toast.makeText(getApplicationContext(),
                             "أدخل إسم المكان ", Toast.LENGTH_LONG).show();
                 }else if (latutuied==null&&longtuti==null){
@@ -376,12 +376,11 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
                 }
                 else {
                     for (int i=0 ;i<MltyChoseService.size();i++){
-                        AddPlaceService(MltyChoseService.get(i), PlacesOfGaverNorate);
-//                        mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child("OtherplacesOfService").child(MultyChoseGavernNorate.get(i)).setValue(PlacesOfPlaces);
-
-                        mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child("nameOfplace").setValue(name_of_place.getText().toString().trim());
-                        mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child("latitude").setValue(latutuied);
-                        mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child("longitude").setValue(longtuti);
+//                        AddPlaceService(MltyChoseService.get(i), PlacesOfGaverNorate);
+                        mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child(name_of_place.getText().toString().trim()).child("OtherplacesOfService").setValue(PlacesOfGaverNorate);
+                        mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child(name_of_place.getText().toString().trim()).child(name_of_place.getText().toString().trim()).setValue(name_of_place.getText().toString().trim());
+                        mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child(name_of_place.getText().toString().trim()).child("latitude").setValue(latutuied);
+                        mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child(name_of_place.getText().toString().trim()).child("longitude").setValue(longtuti);
                     }
 
                 }
@@ -427,11 +426,8 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
 
     private void AddPlaceService (String  serviceName ,Map<String, Object>  arrayOfplaces ) {
 
-        mDatabase.child("users").child("Service").child(serviceName).child("places").child("OtherplacesOfService").setValue(arrayOfplaces);
     }
-    private void AddPlaceServiceWithPLACES (String  serviceName ,ArrayList<String>  arrayOfplaces , Map<String, Object>  arraOfplaces ) {
 
-    }
 
 
 

@@ -8,9 +8,7 @@
     android:orientation="vertical">
 
 
-    <android.support.design.widget.TextInputLayout
-         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
 
         <EditText
             android:id="@+id/name_of_place"
@@ -19,9 +17,9 @@
             android:layout_marginBottom="10dp"
             android:hint="أضف أسم المكان"
             android:inputType="text"
-            android:textColor="@android:color/white"
+            android:textColor="#000"
             android:textColorHint="@android:color/white" />
-    </android.support.design.widget.TextInputLayout>
+
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
