@@ -16,7 +16,7 @@ import governmental.service.egypt.dialogs.PlacesServiceDialog;
 
 public class ServiceActivity extends AppCompatActivity {
     DatabaseReference mDatabase;
-    Button addService ,addTypeService,addPapersService,PlacesService,setting ;
+    Button addService ,addTypeService,addPapersService,PlacesService,setting  ,AllServise ,AllTypeService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,16 @@ public class ServiceActivity extends AppCompatActivity {
         addPapersService=(Button)findViewById(R.id.addPapersService);
         PlacesService=(Button)findViewById(R.id.PlacesService);
         setting=(Button)findViewById(R.id.setting);
+        AllServise=(Button)findViewById(R.id.AllServise);
+        AllTypeService=(Button)findViewById(R.id.AllTypeService);
+        AllServise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getApplicationContext(),AllserviceShow.class);
+                startActivity(intent);
+
+            }
+        });
 
         addService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +60,7 @@ public class ServiceActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent =new Intent(getApplicationContext(),AddPapersServiceDialog.class);
                 startActivity(intent);
+                finish();
 
             }
         });
@@ -71,6 +82,15 @@ public class ServiceActivity extends AppCompatActivity {
             }
         });
 
+        AllTypeService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getApplicationContext(),ShowAllTypeService.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
 
 
     }

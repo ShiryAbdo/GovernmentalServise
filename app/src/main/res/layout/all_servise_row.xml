@@ -1,0 +1,77 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+     android:focusable="true"
+    android:paddingBottom="@dimen/_3sdp"
+    android:layoutDirection="rtl">
+
+    <!--<LinearLayout-->
+        <!--android:layoutDirection="rtl"-->
+        <!--android:background="#df9999"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+
+
+
+
+        <!--<TextView-->
+            <!--android:layoutDirection="rtl"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:id="@+id/title"-->
+            <!--android:textColor="#000"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="15sp"-->
+            <!--android:text="title" />-->
+
+
+    <!--</LinearLayout>-->
+
+
+
+    <LinearLayout
+        android:background="#efeaea"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+
+
+
+
+        <TextView
+            android:layout_weight="2"
+            android:id="@+id/title"
+            android:textColor="#000"
+            android:layoutDirection="rtl"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/position"
+            android:textSize="15sp"
+            android:text="title" />
+        <ImageButton
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="end"
+            android:id="@+id/update"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/hand"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            android:padding="0dp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

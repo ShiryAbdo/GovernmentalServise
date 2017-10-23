@@ -64,6 +64,7 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
     String  name ;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -372,7 +373,7 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
                 }
                 else if(PlacesOfPlaces.isEmpty()){
                     Toast.makeText(getApplicationContext(),
-                            "ضف البيانات ", Toast.LENGTH_LONG).show();
+                            " أضف البيانات ", Toast.LENGTH_LONG).show();
                 }
                 else {
                     for (int i=0 ;i<MltyChoseService.size();i++){
@@ -381,7 +382,11 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
                         mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child(name_of_place.getText().toString().trim()).child(name_of_place.getText().toString().trim()).setValue(name_of_place.getText().toString().trim());
                         mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child(name_of_place.getText().toString().trim()).child("latitude").setValue(latutuied);
                         mDatabase.child("users").child("Service").child(MltyChoseService.get(i)).child("places").child(name_of_place.getText().toString().trim()).child("longitude").setValue(longtuti);
+                        Toast.makeText(getApplicationContext(),
+                                "تمت الإضافه بنجاح", Toast.LENGTH_LONG).show();
+                        MappPlaces.this.finish();
                     }
+
 
                 }
 

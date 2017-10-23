@@ -45,10 +45,13 @@ public class AddServiceDialog extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists()){
                                 Toast.makeText(getApplicationContext(), "الخدممة موجوده ", Toast.LENGTH_SHORT).show();
+
+
                             }else{
                                 AddService(addServiseText.getText().toString().trim());
                                 Toast.makeText(getApplicationContext(), "تم الإضافه بنجاح", Toast.LENGTH_SHORT).show();
-                            }
+                                AddServiceDialog.this.finish();
+                             }
 
 
                         }

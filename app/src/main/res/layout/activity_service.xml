@@ -14,12 +14,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
          android:text="إضافه خدمه" />
+    <Button
+        android:id="@+id/AllServise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="عرض كل الخدمات الموجوده " />
 
     <Button
         android:id="@+id/addTypeService"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
          android:text="إضافة نوع الخدمة" />
+    <Button
+        android:id="@+id/AllTypeService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="عرض كل  أنوع الخدمات" />
 
     <Button
         android:id="@+id/addPapersService"
@@ -34,6 +44,7 @@
         android:text="إضافة  أماكن الخدمة" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

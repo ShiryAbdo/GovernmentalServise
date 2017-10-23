@@ -110,6 +110,7 @@ public class AddTypeServiceDialog extends AppCompatActivity {
                             }else{
                                 AddTypeService(addTyprServiseText.getText().toString().trim(),item);
                                 Toast.makeText(getApplicationContext(), "تم الإضافه بنجاح", Toast.LENGTH_SHORT).show();
+                                AddTypeServiceDialog.this.finish();
                             }
 
 

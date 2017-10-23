@@ -185,46 +185,59 @@ public class AddPapersServiceDialog extends AppCompatActivity {
         addPaperBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(spinner_typeService_item=="أختار نوع اخدمة" &&spinner_service_item=="أختار خدمه"){
+                    Toast.makeText(getApplicationContext(), "منفضلك حدد الخدمة و نوع الخدمة اولا", Toast.LENGTH_LONG).show();
 
-                final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(AddPapersServiceDialog.this, R.style.TransparentDialog));
-                View alertView;
-                LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
-                alertView = inflater.inflate(R.layout.custom_alert_layout, null);
-                dialogBuilder.setView(alertView);
-                dialogBuilder.setCancelable(true);
-                final AlertDialog alertDialog = dialogBuilder.create();
-                alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-
-
-                final EditText addServiseText = (EditText)alertView.findViewById(R.id.addServiseText) ;
-                Button CompletService =(Button)alertView.findViewById(R.id.CompletService);
-
-                CompletService.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                         if(data.contains(addServiseText.getText().toString().trim())){
-                             Toast.makeText(getApplicationContext(), "تم إضافتها مسبقا", Toast.LENGTH_SHORT).show();
-                         }else{
-                             data.add(addServiseText.getText().toString().trim());
-                             papers.put(addServiseText.getText().toString().trim(),addServiseText.getText().toString().trim());
-                             recyclerView.setAdapter(adapter);
-                             adapter.notifyDataSetChanged();
-                             Toast.makeText(getApplicationContext(), "تم الإضافه ", Toast.LENGTH_SHORT).show();
-                             alertDialog.cancel();
-                         }
+                }else{
+                    final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(AddPapersServiceDialog.this, R.style.TransparentDialog));
+                    View alertView;
+                    LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+                    alertView = inflater.inflate(R.layout.custom_alert_layout, null);
+                    dialogBuilder.setView(alertView);
+                    dialogBuilder.setCancelable(true);
+                    final AlertDialog alertDialog = dialogBuilder.create();
+                    alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialogBuilder.setCancelable(true);
 
 
-                    }
-                });
+                    final EditText addServiseText = (EditText)alertView.findViewById(R.id.addServiseText) ;
+                    Button CompletService =(Button)alertView.findViewById(R.id.CompletService);
 
-                alertDialog.show();
-                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-                lp.copyFrom(alertDialog.getWindow().getAttributes());
-                lp.width = 600;
-                lp.height = 800;
-                alertDialog.getWindow().setAttributes(lp);
+                    CompletService.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(data.contains(addServiseText.getText().toString().trim())){
+                                Toast.makeText(getApplicationContext(), "تم إضافتها مسبقا", Toast.LENGTH_SHORT).show();
+                            }else{
+                                if(!addServiseText.getText().toString().trim().equals("")&&addServiseText.getText().toString().trim()!=null){
+                                    data.add(addServiseText.getText().toString().trim());
+                                    papers.put(addServiseText.getText().toString().trim(),addServiseText.getText().toString().trim());
+                                    recyclerView.setAdapter(adapter);
+                                    adapter.notifyDataSetChanged();
+                                    addServiseText.setText("");
+                                    Toast.makeText(getApplicationContext(), "تم الإضافه ", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(getApplicationContext(), "قم بإدخال البيانات", Toast.LENGTH_SHORT).show();
+
+                                }
+
+                            }
+
+
+                        }
+                    });
+
+                    alertDialog.show();
+                    WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                    lp.copyFrom(alertDialog.getWindow().getAttributes());
+                    lp.width = 600;
+                    lp.height = 800;
+                    alertDialog.getWindow().setAttributes(lp);
+                }
+
+
+
 
 
             }

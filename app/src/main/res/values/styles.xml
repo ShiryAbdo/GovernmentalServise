@@ -43,4 +43,12 @@
     </style>
 
 
+    <style name="custom_dialog_theme">
+        <item name="android:windowBackground">@color/dialog_background_color</item>
+
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
+
+
 </resources>

@@ -4,10 +4,6 @@
         "source": "C:\\Users\\falcon\\.android\\build-cache\\d320255e5ae7b3d99b889a923c2f3cac46ffed8e\\output\\res\\layout-v21\\notification_action.xml"
     },
     {
-        "merged": "C:\\Users\\falcon\\Desktop\\spinner\\MultiSelectSpinner-master\\MultiSelectSpinner-master\\library\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
-        "source": "C:\\Users\\falcon\\.android\\build-cache\\d320255e5ae7b3d99b889a923c2f3cac46ffed8e\\output\\res\\layout-v21\\notification_template_custom_big.xml"
-    },
-    {
         "merged": "D:\\thisNew\\GovernmentalServise\\library\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
         "source": "C:\\Users\\falcon\\.android\\build-cache\\d320255e5ae7b3d99b889a923c2f3cac46ffed8e\\output\\res\\layout-v21\\notification_action_tombstone.xml"
     },
@@ -16,19 +12,7 @@
         "source": "C:\\Users\\falcon\\.android\\build-cache\\d320255e5ae7b3d99b889a923c2f3cac46ffed8e\\output\\res\\layout-v21\\notification_template_icon_group.xml"
     },
     {
-        "merged": "C:\\Users\\falcon\\Desktop\\spinner\\MultiSelectSpinner-master\\MultiSelectSpinner-master\\library\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
-        "source": "C:\\Users\\falcon\\.android\\build-cache\\d320255e5ae7b3d99b889a923c2f3cac46ffed8e\\output\\res\\layout-v21\\notification_action_tombstone.xml"
-    },
-    {
         "merged": "D:\\thisNew\\GovernmentalServise\\library\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
         "source": "C:\\Users\\falcon\\.android\\build-cache\\d320255e5ae7b3d99b889a923c2f3cac46ffed8e\\output\\res\\layout-v21\\notification_template_custom_big.xml"
-    },
-    {
-        "merged": "C:\\Users\\falcon\\Desktop\\spinner\\MultiSelectSpinner-master\\MultiSelectSpinner-master\\library\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
-        "source": "C:\\Users\\falcon\\.android\\build-cache\\d320255e5ae7b3d99b889a923c2f3cac46ffed8e\\output\\res\\layout-v21\\notification_template_icon_group.xml"
-    },
-    {
-        "merged": "C:\\Users\\falcon\\Desktop\\spinner\\MultiSelectSpinner-master\\MultiSelectSpinner-master\\library\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
-        "source": "C:\\Users\\falcon\\.android\\build-cache\\d320255e5ae7b3d99b889a923c2f3cac46ffed8e\\output\\res\\layout-v21\\notification_action.xml"
     }
 ]
