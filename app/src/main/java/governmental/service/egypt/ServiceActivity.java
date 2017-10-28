@@ -16,7 +16,8 @@ import governmental.service.egypt.dialogs.PlacesServiceDialog;
 
 public class ServiceActivity extends AppCompatActivity {
     DatabaseReference mDatabase;
-    Button addService ,addTypeService,addPapersService,PlacesService,setting  ,AllServise ,AllTypeService;
+    Button addService ,addTypeService,addPapersService,PlacesService,setting  ,AllServise ,AllTypeService,UpdatePapersService;
+    Button UpdatePlaces ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +29,29 @@ public class ServiceActivity extends AppCompatActivity {
         addPapersService=(Button)findViewById(R.id.addPapersService);
         PlacesService=(Button)findViewById(R.id.PlacesService);
         setting=(Button)findViewById(R.id.setting);
+        UpdatePlaces=(Button)findViewById(R.id.UpdatePlaces);
         AllServise=(Button)findViewById(R.id.AllServise);
         AllTypeService=(Button)findViewById(R.id.AllTypeService);
+        UpdatePapersService=(Button)findViewById(R.id.UpdatePapersService) ;
+
+        UpdatePlaces.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getApplicationContext(),UpdatePlace.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        UpdatePapersService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getApplicationContext(),UpdatePapersService.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
         AllServise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -16,10 +16,11 @@
         <Spinner
             android:layout_margin="20dp"
             android:id="@+id/spinner_service"
-            android:background="#df2c2c"
+            android:textColorHint="#151515"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:layout_gravity="center"
             android:layout_width="300dp"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             />
     </LinearLayout>
 
@@ -31,10 +32,11 @@
         <Spinner
             android:layout_margin="20dp"
             android:id="@+id/spinner_typeService"
-            android:background="#df2c2c"
+            android:textColorHint="#151515"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:layout_gravity="center"
             android:layout_width="300dp"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             />
     </LinearLayout>
 
@@ -46,10 +48,12 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
     <ImageView
+        android:layout_marginStart="@dimen/_10sdp"
         android:id="@+id/addPaperBt"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/add"/>
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/add"
+        android:layout_marginLeft="@dimen/_10sdp" />
     <TextView
         android:gravity="start"
         android:layout_gravity="start"
@@ -59,7 +63,7 @@
         android:layout_marginBottom="10dp"
         android:hint="أضف  أوراق  خدمة"
         android:inputType="text"
-        android:textColor="#000"
+        android:textColor="#8f2424"
         android:textColorHint="#000" />
 
 
@@ -74,6 +78,7 @@
         <android.support.v7.widget.RecyclerView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/recyclerview"
+            android:layout_margin="@dimen/_5sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

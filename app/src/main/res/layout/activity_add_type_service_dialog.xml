@@ -13,10 +13,11 @@
     <Spinner
         android:layout_margin="20dp"
         android:id="@+id/spinner"
-         android:background="#df2c2c"
+        android:textColorHint="#151515"
+        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
         android:layout_gravity="center"
-         android:layout_width="300dp"
-        android:layout_height="30dp"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         />
 </LinearLayout>
 

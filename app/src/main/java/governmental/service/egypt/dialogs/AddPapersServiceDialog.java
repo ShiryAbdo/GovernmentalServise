@@ -1,5 +1,6 @@
 package governmental.service.egypt.dialogs;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
@@ -189,7 +190,7 @@ public class AddPapersServiceDialog extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "منفضلك حدد الخدمة و نوع الخدمة اولا", Toast.LENGTH_LONG).show();
 
                 }else{
-                    final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(AddPapersServiceDialog.this, R.style.TransparentDialog));
+                    @SuppressLint("RestrictedApi") final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(AddPapersServiceDialog.this, R.style.TransparentDialog));
                     View alertView;
                     LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
                     alertView = inflater.inflate(R.layout.custom_alert_layout, null);

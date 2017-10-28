@@ -3,6 +3,8 @@
     <declare-styleable name="MultiSpinnerSearch">
         <attr format="string" name="hintText"/>
     </declare-styleable>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
     <style name="DialogWindowTitle">
         <item name="android:maxLines">1</item>
         <item name="android:scrollHorizontally">true</item>

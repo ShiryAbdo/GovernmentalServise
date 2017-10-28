@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_margin="30dp"
+    android:gravity="center"
     android:layout_height="match_parent"
     tools:context="governmental.service.egypt.ServiceActivity"
     android:orientation="vertical">
@@ -36,12 +37,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="إضافه أوراق الخدمة" />
+    <Button
+        android:id="@+id/UpdatePapersService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="تعديل أوراق الخدمة" />
 
     <Button
         android:id="@+id/PlacesService"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="إضافة  أماكن الخدمة" />
+
+    <Button
+        android:id="@+id/UpdatePlaces"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="تعديل أماكن الخدمه" />
 
     <Button
         android:visibility="gone"

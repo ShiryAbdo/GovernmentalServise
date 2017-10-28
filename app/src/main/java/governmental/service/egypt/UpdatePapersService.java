@@ -8,9 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -22,46 +19,36 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import governmental.service.egypt.Adaptors.ChoseServiceDataAdapter;
-import governmental.service.egypt.Adaptors.ShowAllTypeService_Adaptor;
+import governmental.service.egypt.Adaptors.ChosePaperDataAdapter;
 import governmental.service.egypt.data.Service;
 
-public class ShowAllTypeService extends AppCompatActivity {
-    Spinner spinner ;
-    ArrayList<String> categories ;
-    private DatabaseReference mDatabase;
-    Button CompletService ;
-     String item ;
-    ImageButton search ;
-    String spinner_service_item;
-    ArrayList<String> categories_Spinner_two ;
+public class UpdatePapersService extends AppCompatActivity {
 
     RecyclerView recyclerView ;
     ArrayList<String> data ;
-    ShowAllTypeService_Adaptor adapter ;
-
+    ChosePaperDataAdapter adapter ;
+    DatabaseReference mDatabase;
+    Spinner spinner_service ,spinner_typeService;
+    String spinner_service_item ,spinner_typeService_item;
+    ArrayList<String> categories_Spinner_one ;
+    ArrayList<String> categories_Spinner_two ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_all_type_service);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        search =(ImageButton)findViewById(R.id.search);
+        setContentView(R.layout.activity_update_papers_service);
+          categories_Spinner_one=new ArrayList<>();
+        categories_Spinner_one.add("أختار خدمه");
         categories_Spinner_two=new ArrayList<>();
-        // Spinner element
-        spinner= (Spinner) findViewById(R.id.spinner);
-        // Spinner Drop down elements
-        categories = new ArrayList<String>();
-        categories.add("أختار خدمه");
-        CompletService=(Button)findViewById(R.id.CompletService);
+         spinner_service=(Spinner)findViewById(R.id.spinner_service);
 
+        spinner_typeService=(Spinner)findViewById(R.id.spinner_typeService);
         data= new ArrayList<>();
         recyclerView= (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
-
-
-        mDatabase.child("users").child("Service").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+         mDatabase.child("users").child("Service").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -69,9 +56,11 @@ public class ShowAllTypeService extends AppCompatActivity {
                     for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
 
                         Service value = dataSnapshot1.getValue(Service.class);
-                        Service fire = new Service();
                         String servisename =value.getNameService();
-                        categories.add(servisename);
+
+                        categories_Spinner_one.add(servisename);
+
+
                     }
                 }else{
                 }
@@ -85,25 +74,25 @@ public class ShowAllTypeService extends AppCompatActivity {
             }
         });
 
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories_Spinner_one);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
-        spinner.setAdapter(dataAdapter);
+        spinner_service.setAdapter(dataAdapter);
+        dataAdapter.notifyDataSetChanged();
+        categories_Spinner_two.add("أختار نوع اخدمة");
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner_service.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // On selecting a spinner item
                 spinner_service_item = parent.getItemAtPosition(position).toString();
-                categories_Spinner_two.clear();
                 if(spinner_service_item=="أختار خدمه"){
                     Toast.makeText(getApplicationContext(), "من فضلك إختار خدمة", Toast.LENGTH_SHORT).show();
                 }else{
-                    categories_Spinner_two.clear();
+
                     mDatabase.child("users").child("Service").child(spinner_service_item).child("typeOfSerVICE").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -117,11 +106,6 @@ public class ShowAllTypeService extends AppCompatActivity {
 
 
                                     categories_Spinner_two.add(name);
-
-
-                                    adapter = new ShowAllTypeService_Adaptor(categories_Spinner_two,ShowAllTypeService.this ,spinner_service_item);
-                                    recyclerView.setAdapter(adapter);
-                                    adapter.notifyDataSetChanged();
 
                                 }
                             }else{
@@ -147,17 +131,75 @@ public class ShowAllTypeService extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         });
-        search.setOnClickListener(new View.OnClickListener() {
+
+        ArrayAdapter<String> dataAdater = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories_Spinner_two);
+
+        // Drop down layout style - list view with radio button
+        dataAdater.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner_typeService.setAdapter(dataAdater);
+        dataAdater.notifyDataSetChanged();
+
+
+
+
+
+        spinner_typeService.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                recyclerView.setVisibility(View.VISIBLE);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // On selecting a spinner item
+                data.clear();
+                spinner_typeService_item = parent.getItemAtPosition(position).toString();
+                if(spinner_typeService_item=="أختار نوع اخدمة"){
+                    Toast.makeText(getApplicationContext(), "من فضلك إختار نوع  الخدمة", Toast.LENGTH_SHORT).show();
+                }else{
+
+                    data.clear();
+                    mDatabase.child("users").child("Service").child(spinner_service_item).child("typeOfSerVICE").child(spinner_typeService_item).child("papers").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists()){
+
+                                for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
+                                    String name =dataSnapshot1.getKey();
+
+                                    data.add(name);
+                                    adapter = new ChosePaperDataAdapter(data,UpdatePapersService.this ,spinner_service_item ,spinner_typeService_item);
+                                    recyclerView.setAdapter(adapter);
+                                    adapter.notifyDataSetChanged();
+
+
+                                }
+                            }else{
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+
+                // Showing selected spinner item
+                Toast.makeText(parent.getContext(),   spinner_typeService_item, Toast.LENGTH_LONG).show();
+            }
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
             }
         });
+
+
+
+
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(ShowAllTypeService.this,   ServiceActivity.class);
+        Intent intent = new Intent(UpdatePapersService.this,   ServiceActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();

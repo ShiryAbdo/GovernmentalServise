@@ -2,13 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="#bf699374"
+    android:background="#bfdcdcdc"
     android:layout_height="wrap_content">
 
 
 
 
         <EditText
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:id="@+id/addServiseText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,6 +26,8 @@
 
 
     <Button
+        android:layout_margin="@dimen/_20sdp"
+        android:background="#96d9df"
         android:id="@+id/CompletService"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="match_parent"

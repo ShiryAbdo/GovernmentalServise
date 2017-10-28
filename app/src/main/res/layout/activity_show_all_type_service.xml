@@ -8,10 +8,16 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_margin="@dimen/_5sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageButton
+            android:visibility="gone"
             android:src="@drawable/search"
             android:id="@+id/search"
             android:layout_marginTop="20dp"
@@ -22,34 +28,27 @@
             android:layout_marginLeft="@dimen/_6sdp" />
 
         <Spinner
+            android:layout_marginTop="@dimen/_10sdp"
             android:id="@+id/spinner"
-            android:layout_width="300dp"
-            android:layout_height="30dp"
+             android:textColorHint="#151515"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:background="#df2c2c" />
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+
+            />
 
 
     </LinearLayout>
 
 
-    <TextView
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:padding="@dimen/_5sdp"
-        android:gravity="center"
-        android:textSize="@dimen/_20sdp"
-        android:textColor="#000"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2" />
+
 
     <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/recyclerview"
         android:layout_margin="@dimen/_10sdp"
-        android:visibility="gone"
-        android:layoutDirection="rtl"
+         android:layoutDirection="rtl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

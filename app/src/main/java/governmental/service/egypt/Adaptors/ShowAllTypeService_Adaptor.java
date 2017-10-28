@@ -79,6 +79,13 @@ public class ShowAllTypeService_Adaptor  extends RecyclerView.Adapter<ShowAllTyp
                 UpdateServiseText.setText(androidList.get(i));
                 Button UpdateService = (Button) dialog.findViewById(R.id.UpdateService);
                 Button DeletService =(Button)dialog.findViewById(R.id.DeletService);
+                Button CANCEL = (Button)dialog.findViewById(R.id.CANCEL);
+                CANCEL.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
                 // if button is clicked, close the custom dialog
                 UpdateService.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -36,6 +36,12 @@
          android:layout_height="match_parent"
         android:orientation="horizontal">
         <Button
+            android:id="@+id/CANCEL"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="إلغاء" />
+        <Button
             android:id="@+id/DeletService"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
@@ -47,6 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
              android:text="تعديل" />
+
+
 
     </LinearLayout>
 

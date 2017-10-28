@@ -33,12 +33,10 @@
         <activity
             android:name=".dialogs.AddServiceDialog"
             android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity
-            android:name=".dialogs.AddTypeServiceDialog"
-            android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity
-            android:name=".dialogs.AddPapersServiceDialog"
-            android:theme="@style/Theme.AppCompat" />
+        <activity android:name=".dialogs.AddTypeServiceDialog" />
+        <activity android:name=".dialogs.AddPapersServiceDialog" />
+        <!-- android:theme="@style/Theme.AppCompat" -->
+        <!-- /> -->
         <activity android:name=".dialogs.PlacesServiceDialog" />
         <activity
             android:name=".dialogs.MainActivity"
@@ -60,7 +58,10 @@
             android:name=".MappPlaces"
             android:label="@string/title_activity_mapp_places" />
         <activity android:name=".AllserviceShow" />
-        <activity android:name=".ShowAllTypeService"></activity>
+        <activity android:name=".ShowAllTypeService" />
+        <activity android:name=".UpdatePapersService" />
+        <activity android:name=".UpdatePlace" />
+        <activity android:name=".ContunioUpdating"></activity>
     </application>
 
 </manifest>

@@ -52,6 +52,7 @@ public class ChoseServiceDataAdapter  extends RecyclerView.Adapter<ChoseServiceD
         viewHolder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                notifyDataSetChanged();
                 Toast.makeText(context,androidList.get(i),Toast.LENGTH_LONG).show();
 
 //                Intent intent = new Intent(context,ChoseTypeService.class);
@@ -73,6 +74,14 @@ public class ChoseServiceDataAdapter  extends RecyclerView.Adapter<ChoseServiceD
                 UpdateServiseText.setText(androidList.get(i));
                 Button UpdateService = (Button) dialog.findViewById(R.id.UpdateService);
                 Button DeletService =(Button)dialog.findViewById(R.id.DeletService);
+                Button CANCEL = (Button)dialog.findViewById(R.id.CANCEL);
+                notifyDataSetChanged();
+                CANCEL.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
                 // if button is clicked, close the custom dialog
                 UpdateService.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -4,36 +4,59 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:layout_margin="@dimen/_5sdp"
-     android:focusable="true"
+    android:focusable="true"
     android:paddingBottom="@dimen/_3sdp"
-    android:layoutDirection="rtl">
-
-
-
-
+    android:layoutDirection="rtl"
+    >
 
     <LinearLayout
-        android:background="#efeaea"
+         android:gravity="center"
+        android:layoutDirection="rtl"
+        android:layout_gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_height="wrap_content">
+        <TextView
+            android:layoutDirection="rtl"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight=".5"
 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            />
+
+
+        <TextView
+            android:layoutDirection="rtl"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="@dimen/_5sdp"
+             android:id="@+id/position"
+            android:textColor="#000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="position" />
 
 
 
 
         <TextView
+            android:layoutDirection="rtl"
+            android:gravity="center"
+            android:layout_gravity="center"
             android:layout_weight="2"
             android:id="@+id/title"
             android:textColor="#000"
-            android:layoutDirection="rtl"
-            android:layout_width="@dimen/_120sdp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/position"
             android:textSize="15sp"
             android:text="title" />
+
         <ImageButton
             android:layout_weight="1"
             android:layout_gravity="center"
@@ -47,6 +70,7 @@
             android:background="@android:color/transparent"
             android:padding="0dp"
             />
+
 
     </LinearLayout>
 
