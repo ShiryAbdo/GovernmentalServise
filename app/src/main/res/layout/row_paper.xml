@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
+    android:background="#f6cecece"
+    android:layout_margin="@dimen/_8sdp"
     android:focusable="true"
     android:paddingBottom="@dimen/_3sdp"
     android:layoutDirection="rtl"
@@ -29,6 +31,7 @@
 
 
         <TextView
+            android:background="@drawable/rounded_border"
             android:layoutDirection="rtl"
             android:gravity="center"
             android:layout_gravity="center"

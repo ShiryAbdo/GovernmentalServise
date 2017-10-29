@@ -1,10 +1,12 @@
 package governmental.service.egypt;
 
+import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -105,12 +107,12 @@ public class UpdatePlace extends AppCompatActivity {
                 if(spinner_service_item=="أختار خدمه"){
                     Toast.makeText(getApplicationContext(), "من فضلك إختار خدمة", Toast.LENGTH_SHORT).show();
                 }else{
-
+                    gavernoratWithLocations.clear();
                     mDatabase.child("users").child("Service").child(spinner_service_item).child("places").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists()) {
-
+                                gavernoratWithLocations.clear();
                                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                                     String value = dataSnapshot1.getKey();
                                     places places = dataSnapshot1.getValue(places.class);
@@ -132,7 +134,7 @@ public class UpdatePlace extends AppCompatActivity {
 
                                 }
 
-                                adatorOfareas = new AdatorOfareas(gavernoratWithLocations, UpdatePlace.this );
+                                adatorOfareas = new AdatorOfareas(gavernoratWithLocations, UpdatePlace.this ,spinner_service_item );
                                 recyclerView.setAdapter(adatorOfareas);
                                 adatorOfareas.notifyDataSetChanged();
 
@@ -169,5 +171,13 @@ public class UpdatePlace extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d("CDA", "onBackPressed Called");
+        Intent setIntent = new Intent(UpdatePlace.this,ServiceActivity.class);
+        startActivity(setIntent);
+        finish();
     }
 }

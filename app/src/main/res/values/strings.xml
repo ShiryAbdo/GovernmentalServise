@@ -82,4 +82,5 @@
         <item>Hockey 5</item>
         <item>Swimming 5</item>
     </string-array>
+    <string name="title_activity_contunio_updating_places">Map</string>
 </resources>

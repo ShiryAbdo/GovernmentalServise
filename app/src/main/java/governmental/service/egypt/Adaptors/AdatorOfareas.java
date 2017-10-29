@@ -2,6 +2,7 @@ package governmental.service.egypt.Adaptors;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,11 +16,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import governmental.service.egypt.ContunioUpdatingPlaces;
 import governmental.service.egypt.R;
+import governmental.service.egypt.UpdatePlace;
 import governmental.service.egypt.data.GavernoratWithLocation;
+import governmental.service.egypt.data.places;
 
 /**
  * Created by falcon on 28/10/2017.
@@ -30,11 +39,15 @@ public class AdatorOfareas extends RecyclerView.Adapter<AdatorOfareas.ViewHolder
     private Context context;
     private int lastPosition=-1;
     LatLng location;
-    ArrayList<String> distance_nm ;
-
-    public AdatorOfareas(ArrayList<GavernoratWithLocation> android,Context c  ) {
+    String  service_item ;
+    DatabaseReference mDatabase;
+    String value;
+ Intent intent ;
+    public AdatorOfareas(ArrayList<GavernoratWithLocation> android,Context c  ,String service  ) {
         this.androidList = android;
         this.context=c;
+        this.service_item=service;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
     }
 
@@ -72,25 +85,47 @@ public class AdatorOfareas extends RecyclerView.Adapter<AdatorOfareas.ViewHolder
             @Override
             public void onClick(View view) {
 
+                mDatabase.child("users").child("Service").child(service_item).child("places").child(androidList.get(i).getGovernoratname()).child("OtherplacesOfService").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()) {
+                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                value = dataSnapshot1.getKey();
+                                 intent = new Intent(context, ContunioUpdatingPlaces.class);
+                                 intent.putExtra("latitude",androidList.get(i).getLocatio().latitude);
+                                 intent.putExtra("longitude",androidList.get(i).getLocatio().longitude);
+                                 intent.putExtra("service",service_item);
+                                 intent.putExtra("nameLocation",androidList.get(i).getGovernoratname());
+                                 intent.putExtra("gavernorate",value);
+                                 context.startActivity(intent);
+
+
+                            }
+
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+
+                    }
+                });
+
+
             }
         });
 
         viewHolder.position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,distance_nm.get(i),Toast.LENGTH_LONG).show();
-                viewHolder.position.setText(distance_nm.get(i));
+                Uri gmmIntentUri = Uri.parse("google.navigation:q="+androidList.get(i).getLocatio().latitude+","+androidList.get(i).getLocatio().longitude);
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, gmmIntentUri);
+                context.startActivity(intent);
 
-
-
-//                Intent intent = new Intent(context,Test.class);
-////                Toast.makeText(context,""+androidList.get(i).getLatlangLocatio().latitude,Toast.LENGTH_LONG).show();
-//
-//                intent.putExtra("LATITUDE_ID",androidList.get(i).getLatlangLocatio().latitude);
-//                intent.putExtra("LONGITUDE_ID",androidList.get(i).getLatlangLocatio().longitude);
-//                intent.putExtra("LATITUDE_ID_crountLocation",location.latitude);
-////                intent.putExtra("LONGITUDE_ID_crountLocation",location.longitude);
-//                context.startActivity(intent);
 
             }
         });
