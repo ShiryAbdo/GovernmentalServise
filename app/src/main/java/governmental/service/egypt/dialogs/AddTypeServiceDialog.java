@@ -82,10 +82,13 @@ public class AddTypeServiceDialog extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // On selecting a spinner item
-                  item = parent.getItemAtPosition(position).toString();
-
+                 if( parent.getItemAtPosition(position).toString().equals("أختار خدمه")){
+                    Toast.makeText(parent.getContext(), "من فضلك قوم بإختيارالخدمة", Toast.LENGTH_LONG).show();
+                }else {
+                    item = parent.getItemAtPosition(position).toString();
+                }
                 // Showing selected spinner item
-                Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+                Toast.makeText(parent.getContext(),  ""+ item, Toast.LENGTH_LONG).show();
             }
             public void onNothingSelected(AdapterView<?> arg0) {
                 // TODO Auto-generated method stub
@@ -97,30 +100,36 @@ public class AddTypeServiceDialog extends AppCompatActivity {
         CompletService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(addTyprServiseText.getText().toString().trim())) {
-                    Toast.makeText(getApplicationContext(), "من فضلك أدخل البيانات ", Toast.LENGTH_SHORT).show();
-                    return;
-                }else{
+                if(item==null){
+                    Toast.makeText(getApplicationContext(), "من فضلك قوم بإختيارالخدمة", Toast.LENGTH_LONG).show();
+                }else {
 
-                    mDatabase.child("users").child("Service").child(item).child(addTyprServiseText.getText().toString().trim()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.exists()){
-                                Toast.makeText(getApplicationContext(), "نوع الخدممة موجوده ", Toast.LENGTH_SHORT).show();
-                            }else{
-                                AddTypeService(addTyprServiseText.getText().toString().trim(),item);
-                                Toast.makeText(getApplicationContext(), "تم الإضافه بنجاح", Toast.LENGTH_SHORT).show();
-                                AddTypeServiceDialog.this.finish();
+                    if (TextUtils.isEmpty(addTyprServiseText.getText().toString().trim())) {
+                        Toast.makeText(getApplicationContext(), "من فضلك أدخل البيانات ", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else{
+
+                        mDatabase.child("users").child("Service").child(item).child(addTyprServiseText.getText().toString().trim()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                    Toast.makeText(getApplicationContext(), "نوع الخدممة موجوده ", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    AddTypeService(addTyprServiseText.getText().toString().trim(),item);
+                                    Toast.makeText(getApplicationContext(), "تم الإضافه بنجاح", Toast.LENGTH_SHORT).show();
+                                    AddTypeServiceDialog.this.finish();
+                                }
+
+
                             }
 
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        }
+                            }
+                        });
+                    }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
                 }
 
 

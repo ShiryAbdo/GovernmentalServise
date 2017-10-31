@@ -34,14 +34,15 @@ import java.util.Map;
 
 import governmental.service.egypt.Adaptors.PaperDataAdapter;
 import governmental.service.egypt.R;
+import governmental.service.egypt.data.Areas;
+import governmental.service.egypt.data.Governorate;
 import governmental.service.egypt.data.Service;
-import governmental.service.egypt.data.TyprServis;
 
-public class AddPapersServiceDialog extends AppCompatActivity {
+public class AreaDialog extends AppCompatActivity {
     Spinner spinner_service  ,spinner_typeService;
     TextView addTyprServiseText ;
     RecyclerView recyclerView ;
-    ArrayList<String>data;
+    ArrayList<String> data;
     PaperDataAdapter adapter ;
     ImageView addPaperBt ;
     private DatabaseReference mDatabase;
@@ -50,35 +51,35 @@ public class AddPapersServiceDialog extends AppCompatActivity {
     ArrayList<String> categories_Spinner_two ;
     Button CompletService ;
     Map<String, Object> papers;
+    ArrayList<String> all;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_papers_service_dialog);
+        setContentView(R.layout.activity_area_dialog);
         data= new ArrayList<>();
         papers = new HashMap<>();
         categories_Spinner_one=new ArrayList<>();
-        categories_Spinner_one.add("أختار خدمه");
+        categories_Spinner_one.add("أختار محافظة");
         categories_Spinner_two=new ArrayList<>();
         addPaperBt=(ImageView)findViewById(R.id.addPaperBt);
         spinner_service=(Spinner)findViewById(R.id.spinner_service);
         spinner_typeService=(Spinner)findViewById(R.id.spinner_typeService);
         addTyprServiseText =(TextView)findViewById(R.id.addTyprServiseText);
         recyclerView= (RecyclerView) findViewById(R.id.recyclerview);
-        adapter = new PaperDataAdapter(AddPapersServiceDialog.this,data);
+        adapter = new PaperDataAdapter(AreaDialog.this,data);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mDatabase = FirebaseDatabase.getInstance().getReference();
         CompletService =(Button)findViewById(R.id.CompletService);
-        mDatabase.child("users").child("Service").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("users").child("Governorate").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
 
                     for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
-
-                        Service value = dataSnapshot1.getValue(Service.class);
-                        String servisename =value.getNameService();
+                        Governorate value = dataSnapshot1.getValue(Governorate.class);
+                        String servisename =value.getGovernorateName();
 
                         categories_Spinner_one.add(servisename);
 
@@ -96,7 +97,7 @@ public class AddPapersServiceDialog extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories_Spinner_one);
+        final ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories_Spinner_one);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -104,18 +105,19 @@ public class AddPapersServiceDialog extends AppCompatActivity {
         // attaching data adapter to spinner
         spinner_service.setAdapter(dataAdapter);
         dataAdapter.notifyDataSetChanged();
-        categories_Spinner_two.add("أختار نوع اخدمة");
+        categories_Spinner_two.add("أختارالمدينة");
 
         spinner_service.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 // On selecting a spinner item
                 spinner_service_item = parent.getItemAtPosition(position).toString();
-                if(spinner_service_item=="أختار خدمه"){
+                if(spinner_service_item=="أختار محافظة"){
                     Toast.makeText(getApplicationContext(), "من فضلك إختار خدمة", Toast.LENGTH_SHORT).show();
                 }else{
 
-                    mDatabase.child("users").child("Service").child(spinner_service_item).child("typeOfSerVICE").addListenerForSingleValueEvent(new ValueEventListener() {
+                    mDatabase.child("users").child("Governorate").child(spinner_service_item).child("citys").child("cityNameHash").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.exists()){
@@ -127,7 +129,13 @@ public class AddPapersServiceDialog extends AppCompatActivity {
 //                                String servisename =value.getTyprServis();
 
 
-                                    categories_Spinner_two.add(name);
+                                         categories_Spinner_two.add(name);
+                                         if (categories_Spinner_two.contains("cityNameHash")){
+                                             categories_Spinner_two.remove("cityNameHash");
+                                         }
+
+
+
 
                                 }
                             }else{
@@ -141,6 +149,9 @@ public class AddPapersServiceDialog extends AppCompatActivity {
 
                         }
                     });
+                    data.clear();
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
 
                 }
 
@@ -171,8 +182,8 @@ public class AddPapersServiceDialog extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // On selecting a spinner item
                 spinner_typeService_item = parent.getItemAtPosition(position).toString();
-                if(spinner_typeService_item=="أختار نوع اخدمة"){
-                    Toast.makeText(getApplicationContext(), "من فضلك إختار نوع  الخدمة", Toast.LENGTH_SHORT).show();
+                if(spinner_typeService_item=="أختارالمدينة"){
+                    Toast.makeText(getApplicationContext(), "من فضلك أختارالمدينة", Toast.LENGTH_SHORT).show();
                 }
 
                 // Showing selected spinner item
@@ -186,11 +197,12 @@ public class AddPapersServiceDialog extends AppCompatActivity {
         addPaperBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(spinner_typeService_item=="أختار نوع اخدمة" &&spinner_service_item=="أختار خدمه"){
-                    Toast.makeText(getApplicationContext(), "منفضلك حدد الخدمة و نوع الخدمة اولا", Toast.LENGTH_LONG).show();
+                if(spinner_typeService_item=="أختارالمدينة" &&spinner_service_item=="أختار محافظة"){
+                    Toast.makeText(getApplicationContext(), "منفضلك حدد محافظة و نوع المدينة اولا", Toast.LENGTH_LONG).show();
 
                 }else{
-                    @SuppressLint("RestrictedApi") final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(AddPapersServiceDialog.this, R.style.TransparentDialog));
+                    data.clear();
+                    @SuppressLint("RestrictedApi") final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(AreaDialog.this, R.style.TransparentDialog));
                     View alertView;
                     LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
                     alertView = inflater.inflate(R.layout.custom_alert_layout, null);
@@ -248,14 +260,59 @@ public class AddPapersServiceDialog extends AppCompatActivity {
         CompletService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(spinner_service_item!=null&&spinner_typeService_item!=null&&data!=null){
 
+                 if(spinner_service_item!=null&&spinner_typeService_item!=null&&data!=null){
 
-                    if(spinner_typeService_item=="أختار نوع اخدمة"){
-                        Toast.makeText(getApplicationContext(), "من فضلك إختار نوع  الخدمة", Toast.LENGTH_SHORT).show();
+                    if(spinner_typeService_item=="أختارالمدينة"){
+                        Toast.makeText(getApplicationContext(), "من فضلك أختارالمدينة", Toast.LENGTH_SHORT).show();
                     }else {
-                        AddPaper(spinner_service_item,spinner_typeService_item,papers);
-                        Toast.makeText(getApplicationContext(), "تم الإضافه ", Toast.LENGTH_SHORT).show();
+
+                        mDatabase.child("users").child("Governorate").child(spinner_service_item).child("citys").child("cityNameHash").child(spinner_typeService_item).child("areas").child("areasHs").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                if(dataSnapshot.exists()){
+                                    for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()) {
+                                        StringBuilder spinnerBuffer = new StringBuilder();
+                                        String servisename = dataSnapshot1.getKey();
+                                        all = new ArrayList<>();
+                                        all.add(servisename);
+                                        if(all.contains("cityNameHash"))
+                                        {
+                                            all.remove("cityNameHash");
+                                        }
+                                        spinnerBuffer.append(servisename);
+                                        spinnerBuffer.append(", ");
+                                        for (int m = 0  ; m<all.size();m++){
+                                            papers.put(all.get(m),all.get(m));
+                                        }
+
+                                        Toast.makeText(getApplicationContext(), "موجود" + spinnerBuffer.toString().substring(0, spinnerBuffer.toString().length() - 2), Toast.LENGTH_LONG).show();
+                                        AdaRreas(spinner_service_item,spinner_typeService_item,papers);
+                                        Toast.makeText(getApplicationContext(), "تم الإضافه ", Toast.LENGTH_SHORT).show();
+//                                              data.clear();
+//                                              papers.clear();
+                                    }
+                                }else{
+
+
+                                    AdaRreas(spinner_service_item,spinner_typeService_item,papers);
+                                    Toast.makeText(getApplicationContext(), "تم الإضافه ", Toast.LENGTH_SHORT).show();
+
+
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        data.clear();
+                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+
                     }
 
                 }else {
@@ -267,8 +324,9 @@ public class AddPapersServiceDialog extends AppCompatActivity {
         });
 
     }
-    private void AddPaper (String  serviceName ,String typeOservice,Map<String, Object> papers ) {
+    private void AdaRreas (String  gaverNorateName ,String cityName,Map<String, Object> areasHs ) {
+        Areas areas = new Areas (areasHs);
 
-        mDatabase.child("users").child("Service").child(serviceName).child("typeOfSerVICE").child(typeOservice).child("papers").setValue(papers);
+        mDatabase.child("users").child("Governorate").child(gaverNorateName).child("citys").child("cityNameHash").child(cityName).child("areas").setValue(areas);
     }
 }

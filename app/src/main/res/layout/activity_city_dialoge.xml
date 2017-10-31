@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:padding="@dimen/_10sdp"
+    android:layoutDirection="rtl"
+    android:layout_margin="@dimen/_10sdp"
+    android:background="@drawable/rounded_border"
+    android:layout_height="match_parent"
+    tools:context="governmental.service.egypt.dialogs.CityDialoge"
+  >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:layout_margin="20dp"
+                android:id="@+id/spinner"
+                android:textColorHint="#151515"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                android:layout_gravity="center"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_gravity="start"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_weight="1"
+                    android:textSize="@dimen/_15sdp"
+                    android:layoutDirection="rtl"
+                    android:id="@+id/addTyprServiseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="أضف المدينة  "
+                    android:inputType="text"
+                    android:textColor="#000"
+                    android:textColorHint="#000" />
+
+            <ImageView
+                android:id="@+id/addCitesBt"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:src="@drawable/add" />
+
+
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <android.support.v7.widget.RecyclerView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/recyclerview"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+            <Button
+                android:layout_margin="10dp"
+                android:id="@+id/CompletService"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="إتمام الإضافة " />
+        </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</LinearLayout>

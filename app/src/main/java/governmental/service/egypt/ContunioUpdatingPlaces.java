@@ -38,21 +38,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import governmental.service.egypt.data.Governorate;
 import governmental.service.egypt.data.Service;
 
 public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    MultiSpinnerSearch searchMultiSpinnerUnlimited ,searchMultiSpinnerUnlimitedGavernorat ,searchMultiSpinnerUnlimitedPlaces;
+    MultiSpinnerSearch searchMultiSpinnerUnlimited ,searchMultiSpinnerUnlimitedPlacesSupArea ,searchMultiSpinnerUnlimitedPlaces;
     private DatabaseReference mDatabase;
     ArrayList<String> categories ;
     ArrayList<String>CatogersGaverNorate ;
     ArrayList<String>  categoriesPlaces;
-    List<KeyPairBoolData> listArray0,listArrayGaverNorate,listArrayPlaces;
+    List<KeyPairBoolData> listArray0,listArrayGaverNorate,listArrayPlaces ,listCytisPlaces ,listArrayAreas;;
     ArrayList<String>MultyChoseGavernNorate,MlutyChosePlaces;
     EditText name_of_place ;
     Button CompletService ;
-    Map<String, Object> PlacesOfGaverNorate;
+    Map<String, Object> PlacesOfGaverNorate ,CiysArea;;
     Map<String, Object> PlacesOfPlaces;
     ArrayList<String>CairoPlaces;
     ArrayList<String>gizaPlaces;
@@ -70,6 +71,8 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
     Bundle bundle;
     ArrayList<String>areasData ;
     ArrayList<String> arrayList ;
+    String  nameGavernorate ,nameCity;
+    ArrayList<String> numberOfChoices ,catogersArea;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +109,7 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
         listArray0 = new ArrayList<>();
         listArrayGaverNorate = new ArrayList<>();
         listArrayPlaces = new ArrayList<>();
+        listCytisPlaces = new ArrayList<>();
          MultyChoseGavernNorate=new ArrayList<>();
         MlutyChosePlaces=new ArrayList<>();
         PlacesOfGaverNorate = new HashMap<>();
@@ -116,6 +120,10 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
         sharqialaces=new ArrayList<>();
         mansoraPlaces=new ArrayList<>();
         arrayList = new ArrayList<String>();
+         numberOfChoices = new ArrayList<>();
+        catogersArea= new ArrayList<>();
+        listArrayAreas = new ArrayList<>();
+        CiysArea=new HashMap<>();
 
 
 
@@ -126,7 +134,7 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
 
                     for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
                         StringBuilder spinnerBuffer = new StringBuilder();
-                        String servisename=dataSnapshot1.getValue(String.class);
+                        String servisename=dataSnapshot1.getKey();
                         areasData.add(servisename);
                         for (int i = 0; i < areasData.size(); i++) {
                                 spinnerBuffer.append(areasData.get(i));
@@ -187,36 +195,41 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
 
 
 
-        CatogersGaverNorate.add("إضافة الكل");
-        CatogersGaverNorate.add("القاهره");
-        CatogersGaverNorate.add("الجيزه");
-        CatogersGaverNorate.add("الشرقية");
-        CatogersGaverNorate.add("الدقهلية");
-        CatogersGaverNorate.add("المنصورة");
-        CatogersGaverNorate.add("قنا");
-        CatogersGaverNorate.add("سهاج");
-        CatogersGaverNorate.add("دمياط");
-        CatogersGaverNorate.add("الغربية");
+        mDatabase.child("users").child("Governorate").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    CatogersGaverNorate.clear();
+                    listArrayGaverNorate.clear();
+                    for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
 
-        garbiaPlaces.add("إضافة الكل");
-        garbiaPlaces.add("طنطا قسم أول ");
-        garbiaPlaces.add("طنطا قسم ثاني ");
-        garbiaPlaces.add("المحله");
-        garbiaPlaces.add("زفتي");
-        garbiaPlaces.add("المحله الكبري");
-        garbiaPlaces.add("محله روح");
-        CairoPlaces.add("مدينة نصر");
-        CairoPlaces.add("مصر الجديدة");
-        CairoPlaces.add("المعادي");
-        CairoPlaces.add("حدائق الزتون");
-        for (int i = 0; i < CatogersGaverNorate.size(); i++) {
-            KeyPairBoolData h = new KeyPairBoolData();
-            h.setId(i + 1);
-            h.setName(CatogersGaverNorate.get(i));
-            h.setSelected(false);
-            listArrayGaverNorate.add(h);
-        }
+                        Governorate value = dataSnapshot1.getValue(Governorate.class);
+                        String servisename =value.getGovernorateName();
 
+                        CatogersGaverNorate.add(servisename);
+
+
+                    }
+                }else{
+                }
+
+                for (int i = 0; i < CatogersGaverNorate.size(); i++) {
+                    KeyPairBoolData h = new KeyPairBoolData();
+                    h.setId(i + 1);
+                    h.setName(CatogersGaverNorate.get(i));
+                    h.setSelected(false);
+                    listArrayGaverNorate.add(h);
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         searchSingleSpinner.setItems(listArrayGaverNorate, -1, new SpinnerListener() {
@@ -228,82 +241,253 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
                     final int finalI = i;
                     if (items.get(i).isSelected()) {
 
-                        if( MultyChoseGavernNorate.contains(items.get(finalI).getName())){
-                            Toast.makeText(getApplicationContext(), "تم إضافة هذه المحافظه مسبقا", Toast.LENGTH_SHORT).show();
-                        }else {
-                            name=items.get(finalI).getName();
-                        }
+//                        if( MultyChoseGavernNorate.contains(items.get(finalI).getName())){
+//                            Toast.makeText(getApplicationContext(), "تم إضافة هذه المحافظه مسبقا", Toast.LENGTH_SHORT).show();
+//                        }else {
+                        nameGavernorate=items.get(finalI).getName();
+//                        }
+                        listCytisPlaces.clear();
+                        categoriesPlaces.clear();
+                        mDatabase.child("users").child("Governorate").child(nameGavernorate).child("citys").child("cityNameHash").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+
+                                    listCytisPlaces.clear();
+                                    categoriesPlaces.clear();
+                                    categoriesPlaces.add("إضافة كل المدن");
+                                    for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()) {
+                                        StringBuilder spinnerBuffer = new StringBuilder();
+                                        String servisename = dataSnapshot1.getKey();
+                                        categoriesPlaces.add(servisename);
+                                        if(categoriesPlaces.contains("cityNameHash"))
+                                        {
+                                            categoriesPlaces.remove("cityNameHash");
+                                        }
+
+
+                                    }
+                                    for (int K = 0; K < categoriesPlaces.size(); K++) {
+                                        KeyPairBoolData h = new KeyPairBoolData();
+                                        h.setId(K + 1);
+                                        h.setName(categoriesPlaces.get(K));
+                                        h.setSelected(false);
+                                        listCytisPlaces.add(h);
+                                    }
 
 
 
-                        if(name==CatogersGaverNorate.get(1)){
-                            listArrayPlaces.clear();
-                            categoriesPlaces.clear();
-                            categoriesPlaces.addAll(CairoPlaces);
-                            for (int K = 0; K < categoriesPlaces.size(); K++) {
-                                KeyPairBoolData h = new KeyPairBoolData();
-                                h.setId(K+ 1);
-                                h.setName(categoriesPlaces.get(K));
-                                h.setSelected(false);
-                                listArrayPlaces.add(h);
+                                }
+
+
                             }
-                        }else if (name=="الغربية"){
-                            listArrayPlaces.clear();
-                            categoriesPlaces.clear();
-                            categoriesPlaces.addAll(garbiaPlaces);
 
-                            for (int K = 0; K < categoriesPlaces.size(); K++) {
-                                KeyPairBoolData h = new KeyPairBoolData();
-                                h.setId(K+ 1);
-                                h.setName(categoriesPlaces.get(K));
-                                h.setSelected(false);
-                                listArrayPlaces.add(h);
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
                             }
-                        }else {
-                            listArrayPlaces.clear();
-                            categoriesPlaces.clear();
-                        }
+                        });
 
 
 
 
-                    }else {
-                     }
+                    }
                 }
             }
         });
 
 
-
-        if(name==null){
-           name=gavernorate;
-            Toast.makeText(getApplicationContext(),name,Toast.LENGTH_LONG).show();
-        }else {
-            Toast.makeText(getApplicationContext(),name,Toast.LENGTH_LONG).show();
-        }
-
-
         searchMultiSpinnerUnlimitedPlaces=(MultiSpinnerSearch)findViewById(R.id.searchMultiSpinnerUnlimitedPlaces);
-        searchMultiSpinnerUnlimitedPlaces.setItems(listArrayPlaces, -1, new SpinnerListener() {
+        searchMultiSpinnerUnlimitedPlaces.setItems(listCytisPlaces, -1, new SpinnerListener() {
 
             @Override
             public void onItemsSelected(List<KeyPairBoolData> items) {
                 StringBuilder spinnerBuffer = new StringBuilder();
-                 arrayList = new ArrayList<String>();
+                ArrayList<String> arrayList = new ArrayList<String>();
 
                 for (int i = 0; i < items.size(); i++) {
                     if (items.get(i).isSelected()) {
 
-//                        لا بد من   عمل تشك ايه   بالظبط اللي  اتعمل  له اضافه الكل  وعلي اساسه نختار الأراي   الللي  المفروض   ينضاف
+                        nameCity =items.get(i).getName();
+                        if(nameCity=="إضافة كل المدن"){
+                            numberOfChoices.addAll(categoriesPlaces);
+                            catogersArea.clear();
+                            listArrayAreas.clear();
+                            //                            categoriesPlaces
+                            listArrayAreas.clear();
+                            if(numberOfChoices.contains("إضافة كل المدن")){
+                                numberOfChoices.remove("إضافة كل المدن");
+                            }
+                            KeyPairBoolData h = new KeyPairBoolData();
+                            h.setId(0 + 1);
+                            h.setName("كل المناطق ");
+                            h.setSelected(false);
+                            listArrayAreas.add(h);
+                        }else{
+
+                            numberOfChoices.add(nameCity);
+                            catogersArea.clear();
+                            listArrayAreas.clear();
+                            catogersArea.add("ضافة كل  المناطق");
+                            mDatabase.child("users").child("Governorate").child(nameGavernorate).child("citys").child("cityNameHash").child(nameCity).child("areas").child("areasHs").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                            String servisename = dataSnapshot1.getKey();
+                                            catogersArea.add(servisename);
+                                            if (catogersArea.contains("areasHs")){
+                                                catogersArea.remove("areasHs");
+                                            }
+
+
+                                        }
+
+
+                                    }
+
+                                    if (numberOfChoices.size() == 1) {
+                                        listArrayAreas.clear();
+                                        for (int K = 0; K < catogersArea.size(); K++) {
+                                            KeyPairBoolData h = new KeyPairBoolData();
+                                            h.setId(K + 1);
+                                            h.setName(catogersArea.get(K));
+                                            h.setSelected(false);
+                                            listArrayAreas.add(h);
+                                        }
+                                    }else {
+                                        listArrayAreas.clear();
+                                        KeyPairBoolData h = new KeyPairBoolData();
+                                        h.setId(0 + 1);
+                                        h.setName("كل المناطق ");
+                                        h.setSelected(false);
+                                        listArrayAreas.add(h);
+                                    }
+
+                                }
+
+
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+                        }
+
+                    }
+                }
+                PlacesOfGaverNorate.put(nameGavernorate,arrayList);
+
+
+
+
+
+            }
+        });
+
+
+
+        searchMultiSpinnerUnlimitedPlacesSupArea=(MultiSpinnerSearch)findViewById(R.id.searchMultiSpinnerUnlimitedPlacesSupArea);
+        searchMultiSpinnerUnlimitedPlacesSupArea.setItems(listArrayAreas, -1, new SpinnerListener() {
+
+            @Override
+            public void onItemsSelected(List<KeyPairBoolData> items) {
+                StringBuilder spinnerBuffer = new StringBuilder();
+                ArrayList<String> arrayList = new ArrayList<String>();
+
+                for (int i = 0; i < items.size(); i++) {
+                    if (items.get(i).isSelected()) {
+                        if(numberOfChoices.contains("إضافة كل المدن")){
+                            numberOfChoices.remove("إضافة كل المدن");
+                        }
 
                         String  name =items.get(i).getName();
-                        if(name=="إضافة الكل"){
-                            for(int j = 1; j < garbiaPlaces.size(); j++){
-                                PlacesOfPlaces.put(garbiaPlaces.get(j),garbiaPlaces.get(j));
+                        if(name=="كل المناطق "){
+                            for (int n = 0 ; n<numberOfChoices.size(); n++ ){
+                                final int finalN = n;
+                                Toast.makeText(getApplicationContext(),numberOfChoices.get(finalN) ,Toast.LENGTH_LONG).show();
+                                arrayList.add(numberOfChoices.get(finalN));
+                                final ArrayList<String> arreasCity = new ArrayList<>();
+
+                                mDatabase.child("users").child("Governorate").child(nameGavernorate).child("citys").child("cityNameHash").child(numberOfChoices.get(finalN)).child("areas").child("areasHs").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                        if (dataSnapshot.exists()) {
+                                            if (dataSnapshot != null) {
+                                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                                    StringBuilder spinnerBuffer = new StringBuilder();
+                                                    String servisename = dataSnapshot1.getKey();
+                                                    String value = dataSnapshot1.getValue(String.class);
+                                                    if(value!=null){
+                                                        arreasCity.add(value);
+                                                        if(arreasCity.contains("areasHs")){
+                                                            arreasCity.remove("areasHs");
+                                                        }
+                                                        CiysArea.put(numberOfChoices.get(finalN),arreasCity);
+                                                    }else{
+                                                        CiysArea.put(numberOfChoices.get(finalN),numberOfChoices.get(finalN));
+
+
+                                                    }
+
+
+
+
+
+                                                }
+
+
+                                            }else {
+                                                CiysArea.put(numberOfChoices.get(finalN),numberOfChoices.get(finalN));
+                                                if(!CiysArea.isEmpty()){
+
+                                                    PlacesOfGaverNorate.put(nameGavernorate,CiysArea);
+                                                }
+
+
+                                            }
+
+
+
+
+
+                                        }else{
+
+                                            CiysArea.put(numberOfChoices.get(finalN),numberOfChoices.get(finalN));
+
+
+
+
+                                        }
+                                        if(!CiysArea.isEmpty()){
+
+                                            PlacesOfGaverNorate.put(nameGavernorate,CiysArea);
+                                        }
+//
+
+                                    }
+
+
+
+
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+
+
+
+
 
                             }
-                            Toast.makeText(getApplicationContext(),
-                                    "تم إضافه كل المناطق", Toast.LENGTH_LONG).show();
+
+
 
                         }else {
                             PlacesOfPlaces.put(items.get(i).getName(),items.get(i).getName());
@@ -314,7 +498,6 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
                     }
                 }
 
-                PlacesOfGaverNorate.put(name,arrayList);
 
 
 
@@ -322,6 +505,7 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
 
             }
         });
+
 
         CompletService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -342,7 +526,7 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
                             latutuied=LATITUDE_ID;
                             longtuti=LONGITUDE_ID;
                             if(PlacesOfPlaces.isEmpty()){
-                                PlacesOfGaverNorate.put(gavernorate,areasData);
+//                                PlacesOfGaverNorate.put(gavernorate,areasData);
                                 Toast.makeText(getApplicationContext(),
                                         "تمت الإضافه بنفس المحافظه والمناطق ", Toast.LENGTH_LONG).show();
                             }
@@ -405,7 +589,7 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
                             "أضف موقع المكان علي الخريطة", Toast.LENGTH_LONG).show();
                 } else {
                                    if(PlacesOfPlaces.isEmpty()){
-                                    PlacesOfGaverNorate.put(gavernorate,areasData);
+//                                    PlacesOfGaverNorate.put(gavernorate,areasData);
                                     Toast.makeText(getApplicationContext(),
                                             "تمت الإضافه بنفس المحافظه والمناطق ", Toast.LENGTH_LONG).show();
                                 }

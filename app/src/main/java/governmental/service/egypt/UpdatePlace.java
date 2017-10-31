@@ -115,7 +115,7 @@ public class UpdatePlace extends AppCompatActivity {
                                 gavernoratWithLocations.clear();
                                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                                     String value = dataSnapshot1.getKey();
-                                    places places = dataSnapshot1.getValue(places.class);
+                                    places places = dataSnapshot.getValue(places.class);
 //                        Toast.makeText(getApplicationContext(),value,Toast.LENGTH_LONG).show();
 //                        String value=places.getName();
                                     double latitude = places.getLatitude();

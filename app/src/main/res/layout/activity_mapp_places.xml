@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     android:id="@+id/container"
       android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -37,22 +42,92 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:hintText="أختر الخدمة" />
-    <com.androidbuts.multispinnerfilter.SingleSpinnerSearch
-        android:id="@+id/searchSingleSpinner"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.androidbuts.multispinnerfilter.SingleSpinnerSearch
+            android:id="@+id/searchSingleSpinner"
+            android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:hintText="المحافظات" />
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_gravity="start"
         android:layout_margin="10dp"
-        app:hintText="المحافظات" />
-    <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
-        android:id="@+id/searchMultiSpinnerUnlimitedPlaces"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_marginStart="@dimen/_10sdp"
+            android:id="@+id/addPAreaBt"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="gone"
+            android:src="@drawable/add"
+            android:layout_marginLeft="@dimen/_10sdp" />
+
+        <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
+            android:id="@+id/searchMultiSpinnerUnlimitedPlaces"
+            android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:hintText=" المدينة الموجود بها " />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_gravity="start"
         android:layout_margin="10dp"
-        app:hintText="المناطق الموجود بها " />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:id="@+id/addSupAreaBt"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/add"
+            android:layout_marginLeft="@dimen/_10sdp" />
+
+        <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
+            android:id="@+id/searchMultiSpinnerUnlimitedPlacesSupArea"
+            android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:hintText=" المناطق  الموجود بها " />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/recyclerview"
+        android:layout_margin="@dimen/_5sdp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
 
 
     <Button
         android:layout_margin="15dp"
+        android:background="#3db4b2"
         android:id="@+id/CompletService"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="match_parent"
@@ -60,14 +135,15 @@
         android:layout_marginTop="30dp"
         android:text="إتمام الإضافة " />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
 
 
 </LinearLayout>
+    </ScrollView>
 
 

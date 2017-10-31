@@ -16,7 +16,8 @@ import governmental.service.egypt.dialogs.PlacesServiceDialog;
 
 public class ServiceActivity extends AppCompatActivity {
     DatabaseReference mDatabase;
-    Button addService ,addTypeService,addPapersService,PlacesService,setting  ,AllServise ,AllTypeService,UpdatePapersService;
+    Button addService ,addTypeService,addPapersService,PlacesService,setting  ,AllServise ,AllTypeService,UpdatePapersService
+            ,AddgavernoratAreasCites;
     Button UpdatePlaces ;
 
     @Override
@@ -33,7 +34,16 @@ public class ServiceActivity extends AppCompatActivity {
         AllServise=(Button)findViewById(R.id.AllServise);
         AllTypeService=(Button)findViewById(R.id.AllTypeService);
         UpdatePapersService=(Button)findViewById(R.id.UpdatePapersService) ;
+        AddgavernoratAreasCites=(Button)findViewById(R.id.AddgavernoratAreasCites);
 
+        AddgavernoratAreasCites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getApplicationContext(),AddGavernoratAreasCiTES.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         UpdatePlaces.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

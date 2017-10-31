@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_margin="30dp"
-    android:gravity="center"
-    android:layout_height="match_parent"
+     android:layout_height="match_parent"
     tools:context="governmental.service.egypt.ServiceActivity"
     android:orientation="vertical">
 
+
+<LinearLayout
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:layout_margin="30dp"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
 
 
@@ -21,16 +27,16 @@
         android:focusable="true"
         android:padding="@dimen/_20sdp"
         card_view:cardBackgroundColor="#63d4d0"
-         card_view:cardCornerRadius="25dp">
+        card_view:cardCornerRadius="25dp">
 
         <Button
             android:id="@+id/addService"
 
             android:textStyle="bold"
-            android:textSize="@dimen/_15sdp"
-              android:textColor="#0b084b"
+            android:textSize="@dimen/_13sdp"
+            android:textColor="#0b084b"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="إضافه خدمة" />
@@ -38,23 +44,23 @@
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-         android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="5dp"
         android:focusable="true"
         android:padding="@dimen/_20sdp"
         card_view:cardBackgroundColor="#63d4d0"
         card_view:cardCornerRadius="25dp">
-    <Button
-        android:textStyle="bold"
-        android:textSize="@dimen/_15sdp"
-        android:textColor="#0b084b"
-        style="@style/Widget.AppCompat.Button.Borderless"
-          android:layout_gravity="center"
-        android:id="@+id/AllServise"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="عرض كل الخدمات الموجوده " />
+        <Button
+            android:textStyle="bold"
+            android:textSize="@dimen/_13sdp"
+            android:textColor="#0b084b"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_gravity="center"
+            android:id="@+id/AllServise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="عرض كل الخدمات الموجوده " />
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -66,18 +72,18 @@
         android:padding="@dimen/_20sdp"
         card_view:cardBackgroundColor="#63d4d0"
         card_view:cardCornerRadius="25dp">
-    <Button
-        android:id="@+id/addTypeService"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         android:text="إضافة نوع الخدمة"
-        android:textStyle="bold"
-        android:textSize="@dimen/_15sdp"
-        android:textColor="#0b084b"
-        style="@style/Widget.AppCompat.Button.Borderless"
-         android:layout_gravity="center"
+        <Button
+            android:id="@+id/addTypeService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="إضافة نوع الخدمة"
+            android:textStyle="bold"
+            android:textSize="@dimen/_13sdp"
+            android:textColor="#0b084b"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_gravity="center"
 
-        />
+            />
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -89,62 +95,17 @@
         android:padding="@dimen/_20sdp"
         card_view:cardBackgroundColor="#63d4d0"
         card_view:cardCornerRadius="25dp">
-    <Button
+        <Button
 
-           android:textStyle="bold"
-        android:textSize="@dimen/_15sdp"
-        android:textColor="#0b084b"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_gravity="center"
-        android:id="@+id/AllTypeService"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="عرض كل  أنوع الخدمات" />
-    </android.support.v7.widget.CardView>
-
-
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:focusable="true"
-        android:padding="@dimen/_20sdp"
-        card_view:cardBackgroundColor="#63d4d0"
-        card_view:cardCornerRadius="25dp">
-    <Button
-        android:textStyle="bold"
-        android:textSize="@dimen/_15sdp"
-        android:textColor="#0b084b"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_gravity="center"
-        android:id="@+id/addPapersService"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="إضافه أوراق الخدمة" />
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:focusable="true"
-        android:padding="@dimen/_20sdp"
-        card_view:cardBackgroundColor="#63d4d0"
-        card_view:cardCornerRadius="25dp">
-    <Button
-        android:id="@+id/UpdatePapersService"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="تعديل أوراق الخدمة"
-        android:textStyle="bold"
-        android:textSize="@dimen/_15sdp"
-        android:textColor="#0b084b"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_gravity="center"
-
-        />
+            android:textStyle="bold"
+            android:textSize="@dimen/_13sdp"
+            android:textColor="#0b084b"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_gravity="center"
+            android:id="@+id/AllTypeService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="عرض كل  أنوع الخدمات" />
     </android.support.v7.widget.CardView>
 
 
@@ -157,16 +118,39 @@
         android:padding="@dimen/_20sdp"
         card_view:cardBackgroundColor="#63d4d0"
         card_view:cardCornerRadius="25dp">
-    <Button
-        android:textStyle="bold"
-        android:textSize="@dimen/_15sdp"
-        android:textColor="#0b084b"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_gravity="center"
-        android:id="@+id/PlacesService"
+        <Button
+            android:textStyle="bold"
+            android:textSize="@dimen/_13sdp"
+            android:textColor="#0b084b"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_gravity="center"
+            android:id="@+id/addPapersService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="إضافه أوراق الخدمة" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="إضافة  أماكن الخدمة" />
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:focusable="true"
+        android:padding="@dimen/_20sdp"
+        card_view:cardBackgroundColor="#63d4d0"
+        card_view:cardCornerRadius="25dp">
+        <Button
+            android:id="@+id/UpdatePapersService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="تعديل أوراق الخدمة"
+            android:textStyle="bold"
+            android:textSize="@dimen/_13sdp"
+            android:textColor="#0b084b"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_gravity="center"
+
+            />
     </android.support.v7.widget.CardView>
 
 
@@ -179,17 +163,62 @@
         android:padding="@dimen/_20sdp"
         card_view:cardBackgroundColor="#63d4d0"
         card_view:cardCornerRadius="25dp">
-    <Button
-        android:textStyle="bold"
-        android:textSize="@dimen/_15sdp"
-        android:textColor="#0b084b"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_gravity="center"
-        android:id="@+id/UpdatePlaces"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="تعديل أماكن الخدمه" />
+        <Button
+            android:textStyle="bold"
+            android:textSize="@dimen/_13sdp"
+            android:textColor="#0b084b"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_gravity="center"
+            android:id="@+id/AddgavernoratAreasCites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="المحافظات والمناطق" />
     </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:focusable="true"
+        android:padding="@dimen/_20sdp"
+        card_view:cardBackgroundColor="#63d4d0"
+        card_view:cardCornerRadius="25dp">
+        <Button
+            android:textStyle="bold"
+            android:textSize="@dimen/_13sdp"
+            android:textColor="#0b084b"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_gravity="center"
+            android:id="@+id/PlacesService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="إضافة  أماكن الخدمة" />
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:focusable="true"
+        android:padding="@dimen/_20sdp"
+        card_view:cardBackgroundColor="#63d4d0"
+        card_view:cardCornerRadius="25dp">
+        <Button
+            android:textStyle="bold"
+            android:textSize="@dimen/_13sdp"
+            android:textColor="#0b084b"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_gravity="center"
+            android:id="@+id/UpdatePlaces"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="تعديل أماكن الخدمه" />
+    </android.support.v7.widget.CardView>
+
 
     <Button
 
@@ -199,3 +228,5 @@
         android:layout_height="wrap_content"
         android:text="sitting" />
 </LinearLayout>
+
+</ScrollView>

@@ -63,7 +63,10 @@
         <activity android:name=".UpdatePlace" />
         <activity
             android:name=".ContunioUpdatingPlaces"
-            android:label="@string/title_activity_contunio_updating_places"></activity>
+            android:label="@string/title_activity_contunio_updating_places" />
+        <activity android:name=".AddGavernoratAreasCiTES" />
+        <activity android:name=".dialogs.AreaDialog" />
+        <activity android:name=".dialogs.CityDialoge"></activity>
     </application>
 
 </manifest>
