@@ -394,7 +394,7 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
             public void onItemsSelected(List<KeyPairBoolData> items) {
                 StringBuilder spinnerBuffer = new StringBuilder();
                 ArrayList<String> arrayList = new ArrayList<String>();
-
+                numberOfChoices.clear();
                 for (int i = 0; i < items.size(); i++) {
                     if (items.get(i).isSelected()) {
 
@@ -612,15 +612,18 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
 
                 }
 
-
+                if (latutuied==null&&longtuti==null){
+                    latutuied=FinallatLng.latitude;
+                    longtuti=FinallatLng.longitude;
+                    Toast.makeText(getApplicationContext(),
+                            "تمت الإضافه بنفس الموقع ", Toast.LENGTH_LONG).show();
+                }
 
 
                 if(name_of_place.getText().toString()==""){
                     Toast.makeText(getApplicationContext(),
                             "أدخل إسم المكان ", Toast.LENGTH_LONG).show();
-                }else if (latutuied==null&&longtuti==null){
-                    Toast.makeText(getApplicationContext(),
-                            "أضف موقع المكان علي الخريطة", Toast.LENGTH_LONG).show();
+
                 }else  if(PlacesOfGaverNorate.isEmpty()){
                     Toast.makeText(getApplicationContext(),
                             "الهاش فاضي ", Toast.LENGTH_LONG).show();

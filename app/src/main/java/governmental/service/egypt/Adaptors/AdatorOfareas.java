@@ -91,7 +91,7 @@ public class AdatorOfareas extends RecyclerView.Adapter<AdatorOfareas.ViewHolder
                         if(dataSnapshot.exists()) {
                              for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                                 value = dataSnapshot1.getKey();
-                                 intent = new Intent(context, ContunioUpdatingPlaces.class);
+                                   intent = new Intent(context, ContunioUpdatingPlaces.class);
                                  intent.putExtra("latitude",androidList.get(i).getLocatio().latitude);
                                  intent.putExtra("longitude",androidList.get(i).getLocatio().longitude);
                                  intent.putExtra("service",service_item);

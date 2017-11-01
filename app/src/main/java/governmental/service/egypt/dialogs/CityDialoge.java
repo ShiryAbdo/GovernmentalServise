@@ -198,7 +198,7 @@ public class CityDialoge extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "من فضلك أختار محافظة", Toast.LENGTH_SHORT).show();
                     }else {
 //                         for(int i=0 ; i<data.size();i++){
-                             mDatabase.child("users").child("Governorate").child(nameCity).child("citys").addListenerForSingleValueEvent(new ValueEventListener() {
+                             mDatabase.child("users").child("Governorate").child(nameCity).child("citys").child("cityNameHash").addListenerForSingleValueEvent(new ValueEventListener() {
                                  @Override
                                  public void onDataChange(DataSnapshot dataSnapshot) {
                                      if(dataSnapshot.exists()){
@@ -209,12 +209,16 @@ public class CityDialoge extends AppCompatActivity {
                                              all.add(servisename);
                                              spinnerBuffer.append(servisename);
                                              spinnerBuffer.append(", ");
+                                             if(all.contains("cityNameHash")){
+                                                 all.remove("cityNameHash");
+                                             }
                                              for (int m = 0  ; m<all.size();m++){
                                                  papers.put(all.get(m),all.get(m));
                                              }
+                                             AddCites(nameCity,papers);
 
                                              Toast.makeText(getApplicationContext(), "موجود" + spinnerBuffer.toString().substring(0, spinnerBuffer.toString().length() - 2), Toast.LENGTH_LONG).show();
-                                              AddCites(nameCity,papers);
+
 //                                              data.clear();
 //                                              papers.clear();
                                           }
