@@ -152,7 +152,7 @@ public class ChoseServiceDataAdapter  extends RecyclerView.Adapter<ChoseServiceD
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView factory_name,cintery_name,email_factory;
+        private TextView cintery_name,email_factory;
         private LinearLayout card;
         private ImageButton  update ;
         public ViewHolder(View view) {

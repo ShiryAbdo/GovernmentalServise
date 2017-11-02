@@ -53,7 +53,7 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
     ArrayList<String>MultyChoseGavernNorate,MlutyChosePlaces;
     EditText name_of_place ;
     Button CompletService ;
-    Map<String, Object> PlacesOfGaverNorate ,CiysArea;;
+    Map<String, Object> PlacesOfGaverNorate ,CiysArea ,oldData ,OldDataWithGavernorate;;
     Map<String, Object> PlacesOfPlaces;
     ArrayList<String>CairoPlaces;
     ArrayList<String>gizaPlaces;
@@ -127,6 +127,8 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
         listArrayAreas = new ArrayList<>();
         CiysArea=new HashMap<>();
         subAreas = new ArrayList<>();
+        oldData= new HashMap<>();
+        OldDataWithGavernorate= new HashMap<>();
 
 
 
@@ -149,6 +151,7 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
                         for(int b = 0 ; b <areasData.size();b++){
 
 
+                            final int finalB = b;
                             mDatabase.child("users").child("Service").child(serviceitme).child("places").child(nameLocation).child("OtherplacesOfService").child(gavernorate).child(areasData.get(b)).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -163,10 +166,13 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
                                                 spinnerBuffer.append(", ");
 
                                             }
-
+                                            oldData.put(areasData.get(finalB),subAreas);
                                             if (spinnerBuffer.length() > 2)
                                                 supAreasNames.setText(spinnerBuffer.toString().substring(0, spinnerBuffer.toString().length() - 2));
                                         }
+                                        OldDataWithGavernorate.put(gavernorate,oldData);
+
+
                                     }else{
                                     }
 
@@ -566,6 +572,10 @@ public class ContunioUpdatingPlaces extends FragmentActivity implements OnMapRea
         CompletService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(PlacesOfGaverNorate.isEmpty()){
+                    PlacesOfGaverNorate= OldDataWithGavernorate;
+                }
+
                 if(name_of_place.getText().toString()==""){
                     Toast.makeText(getApplicationContext(),
                             "أدخل إسم المكان ", Toast.LENGTH_LONG).show();

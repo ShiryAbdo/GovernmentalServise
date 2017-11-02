@@ -65,7 +65,7 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
     ArrayList<String>mansoraPlaces;
     SingleSpinnerSearch searchSingleSpinner ;
     LatLng FinallatLng;
-    Double longtuti;
+    Double longtuti ,longtutinew ,latutuiednew;
     Double latutuied;
     ArrayList<String> numberOfChoices;
      String  nameGavernorate ,nameCity;
@@ -613,8 +613,8 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
                 }
 
                 if (latutuied==null&&longtuti==null){
-                    latutuied=FinallatLng.latitude;
-                    longtuti=FinallatLng.longitude;
+                    latutuied=latutuiednew;
+                    longtuti=longtutinew;
                     Toast.makeText(getApplicationContext(),
                             "تمت الإضافه بنفس الموقع ", Toast.LENGTH_LONG).show();
                 }
@@ -671,7 +671,8 @@ public class MappPlaces extends FragmentActivity implements OnMapReadyCallback  
 
             }
         });
-
+        latutuiednew = 30.1229752 ;
+        longtutinew =31.3025158 ;
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(30.1229752,31.3025158);
         mMap.addMarker(new MarkerOptions().position(sydney).title("القاهره"));
